@@ -103,9 +103,14 @@ public class App {
 		String args, select;
 		select = token.nextToken();
 		if (select.equalsIgnoreCase("Weather")) {
-			WeatherApp w = new WeatherApp(this);
+			WeatherApp w = new WeatherApp(this, "Weather");
 			args = cmd.replace(select, "").trim();
 			w.findWeather(args);
+			return;
+		} else if (select.equalsIgnoreCase("Forecast")) {
+			WeatherApp w = new WeatherApp(this, "Forecast");
+			args = cmd.replace(select, "").trim();
+			w.findForecast(args);
 			return;
 		}
 	}

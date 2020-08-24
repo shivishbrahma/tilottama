@@ -294,6 +294,10 @@ public class OpenWeather {
 			wind.details();
 		if (cloud != null)
 			cloud.details();
+		if (rain != null)
+			rain.details();
+		if (snow != null)
+			snow.details();
 
 		sys.details();
 //        System.out.println("Base: "+this.getBase());

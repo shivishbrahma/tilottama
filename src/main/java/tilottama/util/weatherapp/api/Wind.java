@@ -33,7 +33,9 @@ public class Wind {
 
 	public void details() {
 		System.out.println("Wind: ");
-		System.out.println("Speed: " + this.getSpeed() + " " + wUnit[this.unit]);
-		System.out.println("Degree: " + this.getDeg() + " degrees");
+		if (this.speed != 0)
+			System.out.println("Speed: " + this.speed + " " + wUnit[this.unit]);
+		if (this.deg != 0)
+			System.out.println("Degree: " + this.deg + " degrees");
 	}
 }

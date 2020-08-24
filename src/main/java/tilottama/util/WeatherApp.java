@@ -8,6 +8,7 @@ import tilottama.App;
 import tilottama.par.Scraper;
 import tilottama.par.Service;
 import tilottama.util.weatherapp.OpenWeather;
+import tilottama.util.weatherapp.OpenWeatherForecast;
 
 /**
  *
@@ -20,10 +21,10 @@ public class WeatherApp {
 	GsonBuilder builder;
 	Gson gson;
 
-	public WeatherApp(App app) {
+	public WeatherApp(App app, String cmd) {
 		this.app = app;
 		scraper = new Scraper();
-		s = scraper.findService(app, "Weather");
+		s = scraper.findService(app, cmd);
 		builder = new GsonBuilder();
 		gson = builder.create();
 	}
@@ -57,6 +58,16 @@ public class WeatherApp {
 //            e.printStackTrace();
 //        }
 		ow.details();
+	}
+
+	public void findForecast(String args) {
+		OpenWeatherForecast owf = new OpenWeatherForecast();
+		JsonObject jo = scraper.getJsonRequest(s, args).getAsJsonObject();
+		if (jo == null) {
+			return;
+		}
+		owf = gson.fromJson(jo, OpenWeatherForecast.class);
+		owf.details();
 	}
 
 }
