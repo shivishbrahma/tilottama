@@ -18,7 +18,7 @@ public class DayReport {
 	public Cloud clouds;
 	public Snow snow;
 	public Rain rain;
-	public String dt_text;
+	public String dtText;
 
 	/**
 	 * @param main
@@ -28,10 +28,10 @@ public class DayReport {
 	 * @param clouds
 	 * @param snow
 	 * @param rain
-	 * @param dt_text
+	 * @param dtText
 	 */
 	public DayReport(Main main, Sys sys, ArrayList<Weather> weather, Wind wind, Cloud clouds, Snow snow, Rain rain,
-			String dt_text) {
+			String dtText) {
 		this.main = main;
 		this.sys = sys;
 		this.weather = weather;
@@ -39,7 +39,7 @@ public class DayReport {
 		this.clouds = clouds;
 		this.snow = snow;
 		this.rain = rain;
-		this.dt_text = dt_text;
+		this.dtText = dtText;
 	}
 
 	/**
@@ -141,23 +141,23 @@ public class DayReport {
 	}
 
 	/**
-	 * @return the dt_text
+	 * @return the dtText
 	 */
-	public String getDt_text() {
-		return dt_text;
+	public String getDtText() {
+		return dtText;
 	}
 
 	/**
-	 * @param dt_text the dt_text to set
+	 * @param dtText the dtText to set
 	 */
-	public void setDt_text(String dt_text) {
-		this.dt_text = dt_text;
+	public void setDtText(String dtText) {
+		this.dtText = dtText;
 	}
 
 	public void details() {
 		System.out.println("\nDay Report: ");
-		System.out.println("Date: " + dt_text);
-		if(sys!=null)
+		System.out.println("Date: " + dtText);
+		if (sys != null)
 			sys.details();
 		if (main != null)
 			main.details();

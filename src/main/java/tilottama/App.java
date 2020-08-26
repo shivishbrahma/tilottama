@@ -107,10 +107,15 @@ public class App {
 			args = cmd.replace(select, "").trim();
 			w.findWeather(args);
 			return;
-		} else if (select.equalsIgnoreCase("Forecast")) {
+		}
+		if (select.equalsIgnoreCase("Forecast")) {
 			WeatherApp w = new WeatherApp(this, "Forecast");
 			args = cmd.replace(select, "").trim();
 			w.findForecast(args);
+			return;
+		} 
+		if (select.equalsIgnoreCase("CPU")) {
+			tilottama.util.OSSystem.details();
 			return;
 		}
 	}
