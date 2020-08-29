@@ -7,13 +7,19 @@ package tilottama.util;
 
 import java.io.File;
 
+import tilottama.par.StringHandler;
+
 /**
  *
  * @author anitesh
  */
 public class OSSystem {
+	/**
+	 * 
+	 */
 	public static void details() {
-		System.out.println("Memory Info: ");
+
+		System.out.println("\n" + StringHandler.centerAligned("MEMORY INFO", 62, "="));
 		/* Total number of processors or cores available to the JVM */
 		System.out.println("Available processors (cores): " + Runtime.getRuntime().availableProcessors());
 
@@ -31,27 +37,34 @@ public class OSSystem {
 		/* Get a list of all filesystem roots on this system */
 		File[] roots = File.listRoots();
 
-		System.out.println("\nFile System: ");
+		System.out.println("\n" + StringHandler.centerAligned("FILE SYSTEM", 52, "="));
 		/* For each filesystem root, print some info */
 		for (File root : roots) {
-			System.out.println("File system root: " + root.getAbsolutePath());
-			System.out.println("Total space (bytes): " + root.getTotalSpace());
-			System.out.println("Free space (bytes): " + root.getFreeSpace());
-			System.out.println("Usable space (bytes): " + root.getUsableSpace());
+			System.out.println(StringHandler.leftAligned("File system root", 25) + ": "
+					+ StringHandler.rightAligned(root.getAbsolutePath().toString(), 25));
+			System.out.println(StringHandler.leftAligned("Total space (bytes)", 25) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getTotalSpace()), 25));
+			System.out.println(StringHandler.leftAligned("Free space (bytes)", 25) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getFreeSpace()), 25));
+			System.out.println(StringHandler.leftAligned("Usable space (bytes)", 25) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getUsableSpace()), 25));
 		}
 
-		System.out.println("System Architechure");
-		System.out.println(System.getProperty("os.name"));
-		System.out.println(System.getProperty("os.arch"));
-		System.out.println(System.getProperty("os.version"));
+		System.out.println("\n" + StringHandler.centerAligned("SYSTEM ARCHITECTURE", 52, "="));
+		System.out.println(StringHandler.leftAligned("OS Name", 25) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.name"), 25));
+		System.out.println(StringHandler.leftAligned("OS Architecture: ", 25) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.arch"), 25));
+		System.out.println(StringHandler.leftAligned("OS Version: ", 25) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.version"), 25));
 //        System.out.println(System.getProperty("java.version"));
 //        System.out.println(System.getProperty("user.dir"));
 //        System.out.println(System.getProperty("user.home"));        
-		System.out.println(System.getProperty("user.name"));
+		System.out.println(StringHandler.leftAligned("User Name: ", 25) + ": "
+				+ StringHandler.rightAligned(System.getProperty("user.name"), 25));
 //        System.out.println(System.getProperty("path.separator"));
-		System.out.println("");
-//		System.getProperties().list(System.out);
 
+//		System.getProperties().list(System.out);
 //        System.out.println(System.getenv("PROCESSOR_IDENTIFIER"));
 //        System.out.println(System.getenv("PROCESSOR_ARCHITECTURE"));
 //        System.out.println(System.getenv("PROCESSOR_ARCHITEW6432"));
