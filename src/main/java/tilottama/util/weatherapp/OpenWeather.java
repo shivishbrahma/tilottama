@@ -282,7 +282,6 @@ public class OpenWeather {
 	 * 
 	 */
 	public void details() {
-		System.out.println("\n\nWeather Report");
 		DateTime dTime = new DateTime();
 		if (coord != null)
 			coord.details();

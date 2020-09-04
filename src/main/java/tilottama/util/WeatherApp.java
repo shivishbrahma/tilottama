@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import tilottama.App;
 import tilottama.par.Scraper;
 import tilottama.par.Service;
+import tilottama.par.StringHandler;
 import tilottama.util.weatherapp.OpenWeather;
 import tilottama.util.weatherapp.OpenWeatherForecast;
 
@@ -30,6 +31,9 @@ public class WeatherApp {
 		gson = builder.create();
 	}
 
+	/**
+	 * @param args
+	 */
 	public void findWeather(String args) {
 		OpenWeather ow = new OpenWeather();
 		JsonObject jo = scraper.getJsonRequest(s, args).getAsJsonObject();
@@ -58,9 +62,14 @@ public class WeatherApp {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+		System.out.println(StringHandler.centerAligned("WEATHER REPORT", 64, "="));
+		System.out.println(StringHandler.centerAligned("Powered by Open Weather Api", 64, "-"));
 		ow.details();
 	}
 
+	/**
+	 * @param args
+	 */
 	public void findForecast(String args) {
 		OpenWeatherForecast owf = new OpenWeatherForecast();
 		JsonObject jo = scraper.getJsonRequest(s, args).getAsJsonObject();
@@ -68,6 +77,8 @@ public class WeatherApp {
 			return;
 		}
 		owf = gson.fromJson(jo, OpenWeatherForecast.class);
+		System.out.println(StringHandler.centerAligned("WEATHER FORECAST REPORT", 64, "="));
+		System.out.println(StringHandler.centerAligned("Powered by Open Weather Api", 64, "-"));
 		owf.details();
 	}
 

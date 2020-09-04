@@ -8,15 +8,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import tilottama.par.Config;
 import tilottama.par.Service;
-import tilottama.util.WeatherApp;
+import tilottama.par.ServiceHandler;
 
 /**
  * Tilottama main class and its starting point
@@ -99,25 +97,7 @@ public class App {
 	 * @param cmd - Command string to be parsed for execution
 	 */
 	public void callService(String cmd) {
-		StringTokenizer token = new StringTokenizer(cmd);
-		String args, select;
-		select = token.nextToken();
-		if (select.equalsIgnoreCase("Weather")) {
-			WeatherApp w = new WeatherApp(this, "Weather");
-			args = cmd.replace(select, "").trim();
-			w.findWeather(args);
-			return;
-		}
-		if (select.equalsIgnoreCase("Forecast")) {
-			WeatherApp w = new WeatherApp(this, "Forecast");
-			args = cmd.replace(select, "").trim();
-			w.findForecast(args);
-			return;
-		} 
-		if (select.equalsIgnoreCase("CPU")) {
-			tilottama.util.OSSystem.details();
-			return;
-		}
+		ServiceHandler.findAndRun(this, cmd);
 	}
 
 	public static void main(String[] args) {

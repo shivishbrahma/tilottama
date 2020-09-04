@@ -113,7 +113,6 @@ public class OpenWeatherForecast {
 	}
 
 	public void details() {
-		System.out.println("\n\nWeather Forecast Report");
 //		System.out.println("COD: " + this.cod);
 		if (this.city != null)
 			this.city.details();

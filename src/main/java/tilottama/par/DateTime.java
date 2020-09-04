@@ -9,15 +9,15 @@ import java.util.TimeZone;
  *
  */
 public class DateTime {
-	Date date;
-	SimpleDateFormat sdf;
+	static Date date;
+	static SimpleDateFormat sdf;
 
 	/**
 	 * @param unix
 	 * @param s
 	 * @return
 	 */
-	public String unixToFormat(long unix, String s) {
+	public static String unixToFormat(long unix, String s) {
 		date = new Date(unix * 1000L);
 		sdf = new SimpleDateFormat(s);
 		sdf.setTimeZone(TimeZone.getDefault());
@@ -34,7 +34,7 @@ public class DateTime {
 	 * @param unix
 	 * @return
 	 */
-	public String unixToAFormat(long unix) {
+	public static String unixToAFormat(long unix) {
 		String s = "HH:mm:ss";
 		return unixToFormat(unix, s);
 	}
@@ -43,7 +43,7 @@ public class DateTime {
 	 * @param unix
 	 * @return
 	 */
-	public String unixToAPFormat(long unix) {
+	public static String unixToAPFormat(long unix) {
 		String s = "dd MMM yyyy hh:mm:ss a";
 		return unixToFormat(unix, s);
 	}
@@ -52,7 +52,7 @@ public class DateTime {
 	 * @param unix
 	 * @return
 	 */
-	public String unixToZFormat(long unix) {
+	public static String unixToZFormat(long unix) {
 		String s = "dd MMM yyyy HH:mm:ss z";
 		return unixToFormat(unix, s);
 	}
@@ -61,7 +61,7 @@ public class DateTime {
 	 * @param unix
 	 * @return
 	 */
-	public String unixToDFormat(long unix) {
+	public static String unixToDFormat(long unix) {
 		String s = "dd MMM yyyy";
 		return unixToFormat(unix, s);
 	}
@@ -71,7 +71,7 @@ public class DateTime {
 	 * @param s
 	 * @return
 	 */
-	public String unixtoUTC(long unix, String s) {
+	public static String unixtoUTC(long unix, String s) {
 		date = new Date(unix * 1000L);
 		sdf = new SimpleDateFormat(s);
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));

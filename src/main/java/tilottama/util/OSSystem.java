@@ -37,7 +37,7 @@ public class OSSystem {
 		/* Get a list of all filesystem roots on this system */
 		File[] roots = File.listRoots();
 
-		System.out.println("\n" + StringHandler.centerAligned("FILE SYSTEM", 52, "="));
+		System.out.println("\n" + StringHandler.centerAligned("FILE SYSTEM", 64, "="));
 		/* For each filesystem root, print some info */
 		for (File root : roots) {
 			System.out.println(StringHandler.leftAligned("File system root", 25) + ": "

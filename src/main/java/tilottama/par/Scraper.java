@@ -52,7 +52,7 @@ public class Scraper {
 	 * @param args
 	 * @return
 	 */
-	@SuppressWarnings({ "deprecation", "unlikely-arg-type" })
+	@SuppressWarnings({ "unlikely-arg-type" })
 	public JsonElement getJsonRequest(Service s, String args) {
 		StringTokenizer tokenizer = new StringTokenizer(args);
 		String token, val, url = "";
@@ -85,6 +85,9 @@ public class Scraper {
 					url = url + val;
 				}
 			}
+
+			url = String.format(s.getConfig().url, s.getConfig().key) + url;
+			return getJsonRequest(url);
 		} catch (NumberFormatException e) {
 			System.err.println("Invalid Type of Value\n" + e.getMessage());
 			System.exit(0);
@@ -92,14 +95,23 @@ public class Scraper {
 			System.err.println(e.getMessage());
 			System.exit(0);
 		}
+
+		return null;
+	}
+
+	/**
+	 * @param url
+	 * @return
+	 */
+	@SuppressWarnings({ "deprecation" })
+	public JsonElement getJsonRequest(String url) {
 		try {
 			System.setProperty("http.agent", "Netscape 1.0");
-			url = String.format(s.getConfig().url, s.getConfig().key) + url;
 
 			OkHttpClient client = new OkHttpClient();
 			Request req = new Request.Builder().url(url).get().build();
 			Response res = client.newCall(req).execute();
-//            System.out.println(res.toString());
+//			System.out.println(res.toString());
 
 			JsonParser jp = new JsonParser();
 			if (res.code() == 200) {
@@ -110,7 +122,7 @@ public class Scraper {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 }

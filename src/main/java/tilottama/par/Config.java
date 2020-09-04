@@ -23,6 +23,30 @@ public class Config {
 		this.url = url;
 	}
 
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public ArrayList<Args> getArgs() {
+		return args;
+	}
+
+	public void setArgs(ArrayList<Args> args) {
+		this.args = args;
+	}
+
 	public void details() {
 		System.out.println("Configuration :");
 		if (!this.key.equals(""))

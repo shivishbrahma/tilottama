@@ -134,7 +134,6 @@ public class Sys {
 	}
 
 	public void details() {
-		DateTime dt = new DateTime();
 		System.out.println("System: ");
 //		if (this.type != 0)
 //			System.out.println("Type: " + this.type);
@@ -147,8 +146,8 @@ public class Sys {
 		if (this.country != null)
 			System.out.println("Country: " + this.country);
 		if (this.sunrise != 0)
-			System.out.println("Sunrise: " + dt.unixToZFormat((long) this.sunrise));
+			System.out.println("Sunrise: " + DateTime.unixToZFormat((long) this.sunrise));
 		if (this.sunset != 0)
-			System.out.println("Sunset: " + dt.unixToZFormat((long) this.sunset));
+			System.out.println("Sunset: " + DateTime.unixToZFormat((long) this.sunset));
 	}
 }
