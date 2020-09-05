@@ -6,20 +6,22 @@
 package tilottama.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 import tilottama.par.StringHandler;
 
 /**
+ * @author Purbayan Chowdhury<a href=
+ *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  *
- * @author anitesh
  */
 public class OSSystem {
 	/**
 	 * 
 	 */
 	public static void details() {
-
-		System.out.println("\n" + StringHandler.centerAligned("MEMORY INFO", 62, "="));
+		System.out.println("\n" + StringHandler.centerAligned("MEMORY INFO", 64, "="));
 		/* Total number of processors or cores available to the JVM */
 		System.out.println("Available processors (cores): " + Runtime.getRuntime().availableProcessors());
 
@@ -40,28 +42,20 @@ public class OSSystem {
 		System.out.println("\n" + StringHandler.centerAligned("FILE SYSTEM", 64, "="));
 		/* For each filesystem root, print some info */
 		for (File root : roots) {
-			System.out.println(StringHandler.leftAligned("File system root", 25) + ": "
-					+ StringHandler.rightAligned(root.getAbsolutePath().toString(), 25));
-			System.out.println(StringHandler.leftAligned("Total space (bytes)", 25) + ": "
-					+ StringHandler.rightAligned(Long.toString(root.getTotalSpace()), 25));
-			System.out.println(StringHandler.leftAligned("Free space (bytes)", 25) + ": "
-					+ StringHandler.rightAligned(Long.toString(root.getFreeSpace()), 25));
-			System.out.println(StringHandler.leftAligned("Usable space (bytes)", 25) + ": "
-					+ StringHandler.rightAligned(Long.toString(root.getUsableSpace()), 25));
+			System.out.println(StringHandler.leftAligned("File system root", 32) + ": "
+					+ StringHandler.rightAligned(root.getAbsolutePath().toString(), 32));
+			System.out.println(StringHandler.leftAligned("Total space (bytes)", 32) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getTotalSpace()), 32));
+			System.out.println(StringHandler.leftAligned("Free space (bytes)", 32) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getFreeSpace()), 32));
+			System.out.println(StringHandler.leftAligned("Usable space (bytes)", 32) + ": "
+					+ StringHandler.rightAligned(Long.toString(root.getUsableSpace()), 32));
 		}
 
-		System.out.println("\n" + StringHandler.centerAligned("SYSTEM ARCHITECTURE", 52, "="));
-		System.out.println(StringHandler.leftAligned("OS Name", 25) + ": "
-				+ StringHandler.rightAligned(System.getProperty("os.name"), 25));
-		System.out.println(StringHandler.leftAligned("OS Architecture: ", 25) + ": "
-				+ StringHandler.rightAligned(System.getProperty("os.arch"), 25));
-		System.out.println(StringHandler.leftAligned("OS Version: ", 25) + ": "
-				+ StringHandler.rightAligned(System.getProperty("os.version"), 25));
+		System.out.println("\n" + StringHandler.centerAligned("SYSTEM ARCHITECTURE", 64, "="));
+		osInfo();
+		userInfo();
 //        System.out.println(System.getProperty("java.version"));
-//        System.out.println(System.getProperty("user.dir"));
-//        System.out.println(System.getProperty("user.home"));        
-		System.out.println(StringHandler.leftAligned("User Name: ", 25) + ": "
-				+ StringHandler.rightAligned(System.getProperty("user.name"), 25));
 //        System.out.println(System.getProperty("path.separator"));
 
 //		System.getProperties().list(System.out);
@@ -69,6 +63,53 @@ public class OSSystem {
 //        System.out.println(System.getenv("PROCESSOR_ARCHITECTURE"));
 //        System.out.println(System.getenv("PROCESSOR_ARCHITEW6432"));
 //        System.out.println(System.getenv("NUMBER_OF_PROCESSORS"));
+	}
 
+	public static void osInfo() {
+		System.out.println("\n" + StringHandler.centerAligned("OS INFO", 64, "="));
+		System.out.println(StringHandler.leftAligned("OS Name", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.name"), 32));
+		System.out.println(StringHandler.leftAligned("OS Architecture: ", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.arch"), 32));
+		System.out.println(StringHandler.leftAligned("OS Version: ", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("os.version"), 32));
+		System.out.println(StringHandler.leftAligned("OS Distro: ", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("java.vendor"), 32));
+		System.out.println(StringHandler.leftAligned("OS Data Model: ", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("sun.arch.data.model") + "bit", 32));
+	}
+
+	public static void javaDetails() {
+		System.out.println("\n" + StringHandler.centerAligned("JAVA INFO", 64, "="));
+
+	}
+
+	public static void userInfo() {
+		System.out.println("\n" + StringHandler.centerAligned("USER INFO", 64, "="));
+		System.out.println(StringHandler.leftAligned("User Name: ", 32) + ": "
+				+ StringHandler.rightAligned(System.getProperty("user.name"), 32));
+		System.out.println(StringHandler.leftAligned("User Directory", 32) + ":"
+				+ StringHandler.rightAligned(System.getProperty("user.dir"), 32));
+		System.out.println(StringHandler.leftAligned("User Home", 32) + ":"
+				+ StringHandler.rightAligned(System.getProperty("user.home"), 32));
+	}
+
+	public static void systemInfo() throws IOException {
+		Process process = Runtime.getRuntime().exec("pyarchey");
+		// deal with OutputStream to send inputs
+//		process.getOutputStream();
+
+		// deal with InputStream to get ordinary outputs
+		Scanner scanner = new Scanner(process.getInputStream());
+		scanner.useDelimiter("\r\n");
+
+		while (scanner.hasNext()) {
+			System.out.println(scanner.next());
+		}
+
+		scanner.close();
+
+		// deal with ErrorStream to get error outputs
+		process.getErrorStream();
 	}
 }

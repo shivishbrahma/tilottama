@@ -19,8 +19,9 @@ import tilottama.par.ServiceHandler;
 /**
  * Tilottama main class and its starting point
  * 
- * @author Purbayan Chowdhury (<a href=
- *         "https://shivishbrahma.github.io/">shivishbrahma.github.io</a>)
+ * @author Purbayan Chowdhury<a href=
+ *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
+ *
  */
 public class App {
 	private ArrayList<Service> services;
