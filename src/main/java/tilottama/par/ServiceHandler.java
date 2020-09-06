@@ -83,6 +83,13 @@ public class ServiceHandler {
 			tilottama.par.Temperature.temperatureConv(args);
 			return;
 		}
+		
+		// Wiki
+		if(select.equalsIgnoreCase("wiki")) {
+			args = cmd.replaceAll(select, "").trim();
+			Wiki wk = new Wiki(args);
+			wk.details();
+		}
 	}
 
 }

@@ -160,6 +160,7 @@ public class Temperature {
 			break;
 		}
 		sc.close();
+		System.out.println(StringHandler.centerAligned("TEMPERATURE CONVERTOR", 64, "="));
 		System.out.println("Given Temperature: " + source);
 		System.out.println("Converted Temperature: " + dest);
 	}

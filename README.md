@@ -17,4 +17,5 @@ A Java based multi-tasking command line interface bot.
   - `currency <amount> <from> <to>`
 - Temperature Converter
   - `temperature <value> (C/F/K) (C/F/K)`
-
+- Wikipedia
+  - `wiki <topic>`
