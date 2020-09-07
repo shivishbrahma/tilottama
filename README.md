@@ -12,6 +12,7 @@ A Java based multi-tasking command line interface bot.
 - Weather and Forecast
 
   - `(weather/forecast) city <cityname>`
+  - `(weather/forecast) lat <latitiude> lon <longitude>`
 - Currency Converter
 
   - `currency <amount> <from> <to>`
@@ -19,3 +20,8 @@ A Java based multi-tasking command line interface bot.
   - `temperature <value> (C/F/K) (C/F/K)`
 - Wikipedia
   - `wiki <topic>`
+
+- Number Trick
+  - Pi : `pi <no_of_digits>`
+  - Roll Dice :`roll`
+  - Flip Coin: `coin`

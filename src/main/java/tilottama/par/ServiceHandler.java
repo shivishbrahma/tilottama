@@ -1,9 +1,10 @@
 package tilottama.par;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.StringTokenizer;
-
 import tilottama.App;
+import tilottama.game.MainGame;
 import tilottama.util.CurrencyConvertor;
 import tilottama.util.WeatherApp;
 
@@ -15,6 +16,7 @@ import tilottama.util.WeatherApp;
 public class ServiceHandler {
 
 	public static void findAndRun(App app, String cmd) {
+		MainGame mg = new MainGame();
 		StringTokenizer token = new StringTokenizer(cmd);
 		String args, select;
 		select = token.nextToken();
@@ -78,17 +80,40 @@ public class ServiceHandler {
 			return;
 		}
 		// Temperature Convertor
-		if(select.equalsIgnoreCase("temperature")) {
+		if (select.equalsIgnoreCase("temperature")) {
 			args = cmd.replaceAll(select, "").trim();
 			tilottama.par.Temperature.temperatureConv(args);
 			return;
 		}
-		
+
 		// Wiki
-		if(select.equalsIgnoreCase("wiki")) {
+		if (select.equalsIgnoreCase("wiki")) {
 			args = cmd.replaceAll(select, "").trim();
 			Wiki wk = new Wiki(args);
 			wk.details();
+			return;
+		}
+
+		// Roll dice
+		if (select.equalsIgnoreCase("roll")) {
+			mg.rollDice();
+			return;
+		}
+
+		// Flip coin
+		if (select.equalsIgnoreCase("coin")) {
+			mg.flipCoin();
+			return;
+		}
+
+		// Pi Digits
+		if (select.equalsIgnoreCase("pi")) {
+			args = cmd.replaceAll(select, "").trim();
+			if (args.equalsIgnoreCase(""))
+				mg.pi(64*64-3);
+			else
+				mg.pi(Integer.parseInt(args));
+			return;
 		}
 	}
 

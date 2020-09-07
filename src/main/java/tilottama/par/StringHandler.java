@@ -89,4 +89,17 @@ public class StringHandler {
 		}
 		return res;
 	}
+	
+	public static String wrapString(String s, int length) {
+	    String result = "";
+	    int c=0;
+	    for(int i=0; i<s.length();i++) {
+	    	result+=s.charAt(i);
+	    	if(c++==length) {
+	    		c=0;
+	    		result+="\n";
+	    	}
+	    }
+	    return result;
+	}
 }
