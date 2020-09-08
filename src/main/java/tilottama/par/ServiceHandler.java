@@ -1,10 +1,10 @@
 package tilottama.par;
 
 import java.io.IOException;
-import java.util.Random;
 import java.util.StringTokenizer;
 import tilottama.App;
 import tilottama.game.MainGame;
+import tilottama.gui.Gui;
 import tilottama.util.CurrencyConvertor;
 import tilottama.util.WeatherApp;
 
@@ -15,6 +15,10 @@ import tilottama.util.WeatherApp;
  */
 public class ServiceHandler {
 
+	/**
+	 * @param app
+	 * @param cmd
+	 */
 	public static void findAndRun(App app, String cmd) {
 		MainGame mg = new MainGame();
 		StringTokenizer token = new StringTokenizer(cmd);
@@ -113,6 +117,14 @@ public class ServiceHandler {
 				mg.pi(64*64-3);
 			else
 				mg.pi(Integer.parseInt(args));
+			return;
+		}
+		
+		// Gui
+		if(select.equalsIgnoreCase("gui")) {
+			Gui gui = new Gui(app);
+
+			gui.setVisible(true);
 			return;
 		}
 	}

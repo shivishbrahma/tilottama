@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -25,13 +29,54 @@ import tilottama.par.ServiceHandler;
  */
 public class App {
 	private ArrayList<Service> services;
+	private String APP_NAME, version;
+	private ImageIcon APP_ICON;
 
 	public ArrayList<Service> getServices() {
 		return services;
 	}
 
 	App() {
+		this.APP_NAME = "Tillotama(তিলোতমা)";
+		this.version = "1.0.1";
+		this.setAPP_ICON(new ImageIcon("icons/icon.png"));
 		this.readServices();
+	}
+
+	/**
+	 * @return the APP_NAME
+	 */
+	public String getAPP_NAME() {
+		return APP_NAME;
+	}
+
+	/**
+	 * @param aPP_NAME the aPP_NAME to set
+	 */
+	public void setAPP_NAME(String APP_NAME) {
+		this.APP_NAME = APP_NAME;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+	public ImageIcon getAPP_ICON() {
+		return APP_ICON;
+	}
+
+	public void setAPP_ICON(ImageIcon APP_ICON) {
+		this.APP_ICON = APP_ICON;
 	}
 
 	public ArrayList<Service> dummyServices() {

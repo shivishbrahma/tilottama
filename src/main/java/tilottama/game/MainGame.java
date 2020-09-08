@@ -5,9 +5,7 @@ package tilottama.game;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.Random;
 
 /**
@@ -17,7 +15,7 @@ import java.util.Random;
  */
 public class MainGame {
 	/**
-	 * 
+	 * Rolls dice
 	 */
 	public void rollDice() {
 		Random dice = new Random(123);
@@ -25,7 +23,7 @@ public class MainGame {
 	}
 	
 	/**
-	 * 
+	 * Flips coin
 	 */
 	public void flipCoin() {
 		Random coin = new Random(123);
@@ -33,6 +31,10 @@ public class MainGame {
 		System.out.println("Flip Coin: "+s[coin.nextInt(2)]);
 	}
 	
+	/**
+	 * Print no of digits after decimal
+	 * @param digits - No of digits after decimal
+	 */
 	public void pi(int digits) {
 		try {
 			BufferedReader br =new BufferedReader(new FileReader(new File("pi.txt")));
