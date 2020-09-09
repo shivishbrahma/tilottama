@@ -8,14 +8,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import tilottama.gui.About;
 import tilottama.par.Config;
 import tilottama.par.Service;
 import tilottama.par.ServiceHandler;
@@ -30,6 +33,8 @@ import tilottama.par.ServiceHandler;
 public class App {
 	private ArrayList<Service> services;
 	private String APP_NAME, version;
+	private ArrayList<String> authors = new ArrayList<>();
+	private Map<String, JFrame> frames = new HashMap<>();
 	private ImageIcon APP_ICON;
 
 	public ArrayList<Service> getServices() {
@@ -39,8 +44,40 @@ public class App {
 	App() {
 		this.APP_NAME = "Tillotama(তিলোতমা)";
 		this.version = "1.0.1";
+		this.authors.add("Purbayan Chowdhury");
 		this.setAPP_ICON(new ImageIcon("icons/icon.png"));
+		
+
+		this.frames.put("about", new About(this));		
 		this.readServices();
+	}
+
+	/**
+	 * @return the authors
+	 */
+	public ArrayList<String> getAuthors() {
+		return authors;
+	}
+
+	/**
+	 * @param authors the authors to set
+	 */
+	public void setAuthors(ArrayList<String> authors) {
+		this.authors = authors;
+	}
+
+	/**
+	 * @return the frames
+	 */
+	public Map<String, JFrame> getFrames() {
+		return frames;
+	}
+
+	/**
+	 * @param frames the frames to set
+	 */
+	public void setFrames(Map<String, JFrame> frames) {
+		this.frames = frames;
 	}
 
 	/**
