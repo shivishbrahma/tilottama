@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import tilottama.gui.About;
+import tilottama.gui.Calculator;
 import tilottama.par.Config;
 import tilottama.par.Service;
 import tilottama.par.ServiceHandler;
@@ -45,11 +46,16 @@ public class App {
 		this.APP_NAME = "Tillotama(তিলোতমা)";
 		this.version = "1.0.1";
 		this.authors.add("Purbayan Chowdhury");
+		this.authors.add("Anitesh Roy Chowdhury");
+		this.authors.add("Heller Lorday");
 		this.setAPP_ICON(new ImageIcon("icons/icon.png"));
-		
-
-		this.frames.put("about", new About(this));		
+		this.initGuiServices();
 		this.readServices();
+	}
+
+	public void initGuiServices() {
+		this.frames.put("about", new About(this));
+		this.frames.put("calculator", new Calculator(this));
 	}
 
 	/**

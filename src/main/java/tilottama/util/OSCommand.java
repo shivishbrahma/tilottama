@@ -27,4 +27,8 @@ public class OSCommand {
 		// deal with ErrorStream to get error outputs
 		process.getErrorStream();
 	}
+	
+	public static void main(String[] args) {
+		String music = "/home/anitesh/Music/music/Aero Chord feat. DDARK - Shootin Stars [NCS Release]-PTF5xgT-pm8.mp3";
+	}
 }

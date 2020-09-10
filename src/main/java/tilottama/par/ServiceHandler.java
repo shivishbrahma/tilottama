@@ -114,17 +114,21 @@ public class ServiceHandler {
 		if (select.equalsIgnoreCase("pi")) {
 			args = cmd.replaceAll(select, "").trim();
 			if (args.equalsIgnoreCase(""))
-				mg.pi(64*64-3);
+				mg.pi(64 * 64 - 3);
 			else
 				mg.pi(Integer.parseInt(args));
 			return;
 		}
-		
-		// Gui
-		if(select.equalsIgnoreCase("gui")) {
-			Gui gui = new Gui(app);
 
-			gui.setVisible(true);
+		// Gui
+		if (select.equalsIgnoreCase("gui")) {
+			args = cmd.replaceAll(select, "").trim();
+			if (args.equalsIgnoreCase("") || !app.getFrames().containsKey(args)) {
+				Gui gui = new Gui(app);
+				gui.setVisible(true);
+			} else {
+				app.getFrames().get(args).setVisible(true);
+			}
 			return;
 		}
 	}
