@@ -47,6 +47,11 @@ public class ServiceHandler {
 			tilottama.util.OSSystem.osInfo();
 			return;
 		}
+		// IP
+		if(select.equalsIgnoreCase("ip")) {
+			tilottama.util.OSSystem.ipInfo();
+			return;
+		}
 		if (select.equalsIgnoreCase("user")) {
 			tilottama.util.OSSystem.userInfo();
 			return;
@@ -131,6 +136,7 @@ public class ServiceHandler {
 			}
 			return;
 		}
+		
 	}
 
 }

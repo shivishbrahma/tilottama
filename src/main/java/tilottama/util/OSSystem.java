@@ -7,6 +7,10 @@ package tilottama.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 import tilottama.par.StringHandler;
@@ -92,6 +96,26 @@ public class OSSystem {
 				+ StringHandler.rightAligned(System.getProperty("user.dir"), 32));
 		System.out.println(StringHandler.leftAligned("User Home", 32) + ":"
 				+ StringHandler.rightAligned(System.getProperty("user.home"), 32));
+	}
+
+	public static void ipInfo() {
+		System.out.println("\n" + StringHandler.centerAligned("IP INFO", 64, "="));
+		try {
+			System.out.println("Your Host addr: " + InetAddress.getLocalHost().getHostAddress());
+			Enumeration<NetworkInterface> n = NetworkInterface.getNetworkInterfaces();
+			for (; n.hasMoreElements();) {
+				NetworkInterface e = n.nextElement();
+
+				Enumeration<InetAddress> a = e.getInetAddresses();
+				for (; a.hasMoreElements();) {
+					InetAddress addr = a.nextElement();
+					System.out.println(addr.getHostAddress());
+				}
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
 	public static void systemInfo() throws IOException {
