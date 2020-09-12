@@ -36,7 +36,11 @@ public class Gui extends JFrame {
 	public Gui(App app, String name) {
 		this.app = app;
 		this.setSize(1000, 800);
-		this.setTitle(app.getAPP_NAME());
+		if (name != "")
+			name = name + " - " + app.getAPP_NAME();
+		else
+			name = app.getAPP_NAME();
+		this.setTitle(name);
 		this.setIconImage(app.getAPP_ICON().getImage());
 		this.setResizable(false);
 		// Display in the center of the screen

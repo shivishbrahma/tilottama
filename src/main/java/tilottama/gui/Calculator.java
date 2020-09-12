@@ -48,7 +48,7 @@ public class Calculator extends Gui{
 	 * 
 	 */
 	public Calculator(App app) {
-		super(app);
+		super(app, "Calculator");
 		grid = new GridBagLayout();
 		gbc = new GridBagConstraints();
 		numStack = new Stack<>();
@@ -131,6 +131,8 @@ public class Calculator extends Gui{
 						s = "";
 						numStack.clear();
 						optStack.clear();
+						stepDis.setText("");
+						optDis.setText("");
 					}
 					if (key.equalsIgnoreCase("CE")) {
 						s = "";

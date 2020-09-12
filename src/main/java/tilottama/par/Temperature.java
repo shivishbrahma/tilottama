@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class Temperature {
 	private double temp, temp_C, temp_F;
 
-	Temperature(double temp) {
+	public Temperature(double temp) {
 		this(temp, 'K');
 	}
 
-	Temperature(double temp, char c) {
+	public Temperature(double temp, char c) {
 		switch (c) {
 		case 'c':
 		case 'C':
@@ -124,6 +124,20 @@ public class Temperature {
 	 */
 	public double convF2K(double temp) {
 		return convC2K(convF2C(temp));
+	}
+	
+	public static double temperatureConv(char fromTem, char toTem, double val) {
+		Temperature temp = new Temperature(val, fromTem);
+		switch (toTem) {
+		case 'c':
+		case 'C':
+			return temp.getTemp_C();
+		case 'f':
+		case 'F':
+			return temp.getTemp_F();
+		default:
+			return temp.getTemp();
+		}
 	}
 
 	public static void temperatureConv(String cmd) {
