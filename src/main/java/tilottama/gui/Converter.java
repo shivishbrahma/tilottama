@@ -50,6 +50,7 @@ public class Converter extends Gui {
 		gbc = new GridBagConstraints();
 		this.setLayout(grid);
 
+		initPanels();
 		initTemperature();
 		initCurrency();
 
@@ -85,43 +86,17 @@ public class Converter extends Gui {
 		return charUnits.get(tempUnits.indexOf(s));
 	}
 
-	public void initTemperature() {
+	public void initPanels() {
 		convPanel = new JPanel(grid);
-		String tempUnits[] = { "Kelvin(K)", "Fahrenheit(℉)", "Celsius(℃)" };
 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		this.add(convPanel, gbc);
 
-		toLabel = new JLabel("To: ");
-		toLabel.setPreferredSize(new Dimension(250, 20));
+		fromLabel = new JLabel("From: ");
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.gridwidth = 2;
-		convPanel.add(toLabel, gbc);
-
-		toText = new JTextField(8);
-		toText.setPreferredSize(new Dimension(80, 20));
-		toText.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
-		toText.setEnabled(false);
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.ipadx = 5;
-		gbc.gridwidth = 1;
-		convPanel.add(toText, gbc);
-
-		toSelect = new JComboBox<>(tempUnits);
-		toSelect.setPreferredSize(new Dimension(150, 20));
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		gbc.ipadx = 5;
-		gbc.gridwidth = 1;
-		convPanel.add(toSelect, gbc);
-
-		fromLabel = new JLabel("From: ");
-		gbc.gridx = 0;
-		gbc.gridy = 2;
 		gbc.ipady = 5;
 		gbc.gridwidth = 2;
 		convPanel.add(fromLabel, gbc);
@@ -130,17 +105,42 @@ public class Converter extends Gui {
 		fromText.setPreferredSize(new Dimension(80, 20));
 		fromText.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
 		gbc.gridx = 0;
-		gbc.gridy = 3;
+		gbc.gridy = 1;
 		gbc.ipadx = 5;
 		gbc.gridwidth = 1;
 		convPanel.add(fromText, gbc);
 
-		fromSelect = new JComboBox<>(tempUnits);
+		fromSelect = new JComboBox<>();
 		fromSelect.setPreferredSize(new Dimension(150, 20));
 		gbc.gridx = 1;
-		gbc.gridy = 3;
+		gbc.gridy = 1;
 		gbc.gridwidth = 1;
 		convPanel.add(fromSelect, gbc);
+
+		toLabel = new JLabel("To: ");
+		toLabel.setPreferredSize(new Dimension(250, 20));
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		gbc.gridwidth = 2;
+		convPanel.add(toLabel, gbc);
+
+		toText = new JTextField(8);
+		toText.setPreferredSize(new Dimension(80, 20));
+		toText.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+		toText.setEnabled(false);
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.ipadx = 5;
+		gbc.gridwidth = 1;
+		convPanel.add(toText, gbc);
+
+		toSelect = new JComboBox<>();
+		toSelect.setPreferredSize(new Dimension(150, 20));
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.ipadx = 5;
+		gbc.gridwidth = 1;
+		convPanel.add(toSelect, gbc);
 
 		convBtn = new JButton("Convert");
 		convBtn.setPreferredSize(new Dimension(100, 20));
@@ -149,7 +149,22 @@ public class Converter extends Gui {
 		gbc.gridy = 4;
 		gbc.gridwidth = 2;
 		convPanel.add(convBtn, gbc);
+	}
 
+	public void initTemperature() {
+		String tempUnits[] = { "Kelvin(K)", "Fahrenheit(℉)", "Celsius(℃)" };
+		fromSelect.removeAllItems();
+		for(String item: tempUnits) {
+			fromSelect.addItem(item);
+		}
+		toSelect.removeAllItems();
+		for(String item: tempUnits) {
+			toSelect.addItem(item);
+		}
+		// Remove all Action Listeners
+		for (ActionListener l : convBtn.getActionListeners()) {
+			convBtn.removeActionListener(l);
+		}
 		tempConv = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -158,7 +173,7 @@ public class Converter extends Gui {
 				if (fromUnit.equalsIgnoreCase(toUnit)) {
 					toText.setText(Double.toString(fromValue));
 				} else {
-					toText.setText(Double.toString(tilottama.par.Temperature
+					toText.setText(String.format("%.3f", tilottama.par.Temperature
 							.temperatureConv(getCharTemperature(fromUnit), getCharTemperature(toUnit), fromValue)));
 				}
 			}
