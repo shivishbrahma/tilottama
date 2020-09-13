@@ -51,12 +51,16 @@ public class Currency {
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;
 	}
+	
+	public String toString() {
+		return String.format("%s(%s)", name, currencyCode);
+	}
 
 	public void details() {
 		System.out.println("Currency Code: " + currencyCode);
 		System.out.println("Currency Name: " + name);
 		System.out.println("Currency Symbol: " + symbol);
-		System.out.println("Country Code: " + currencyCode);
+		System.out.println("Country Code: " + countryCode);
 		System.out.println("Country Name: " + countryName);
 	}
 }

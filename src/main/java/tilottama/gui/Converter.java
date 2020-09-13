@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import tilottama.App;
+import tilottama.util.CurrencyConvertor;
+import tilottama.util.currencyconv.api.Currency;
 
 /**
  * @author Purbayan Chowdhury<a href=
@@ -37,7 +40,7 @@ public class Converter extends Gui {
 	private JComboBox<String> typeSelect, toSelect, fromSelect;
 	private JTextField toText, fromText;
 	private JButton convBtn;
-	private ActionListener tempConv;
+	private ActionListener tempConv, currConv;
 
 	/**
 	 * @param app
@@ -52,7 +55,7 @@ public class Converter extends Gui {
 
 		initPanels();
 		initTemperature();
-		initCurrency();
+//		initCurrency();
 
 		typePanel = new JPanel(grid);
 		nameLabel = new JLabel("Type: ");
@@ -72,6 +75,20 @@ public class Converter extends Gui {
 		gbc.gridx = gbc.gridy = 0;
 		gbc.ipady = 5;
 		this.add(typePanel, gbc);
+
+		typeSelect.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				switch (typeSelect.getSelectedIndex()) {
+				case 0:
+					initTemperature();
+					break;
+				case 1:
+					initCurrency();
+					break;
+				}
+			}
+		});
 	}
 
 	public char getCharTemperature(String s) {
@@ -111,7 +128,7 @@ public class Converter extends Gui {
 		convPanel.add(fromText, gbc);
 
 		fromSelect = new JComboBox<>();
-		fromSelect.setPreferredSize(new Dimension(150, 20));
+		fromSelect.setMinimumSize(new Dimension(200, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
@@ -135,7 +152,7 @@ public class Converter extends Gui {
 		convPanel.add(toText, gbc);
 
 		toSelect = new JComboBox<>();
-		toSelect.setPreferredSize(new Dimension(150, 20));
+		toSelect.setMinimumSize(new Dimension(200, 20));
 		gbc.gridx = 1;
 		gbc.gridy = 3;
 		gbc.ipadx = 5;
@@ -154,11 +171,11 @@ public class Converter extends Gui {
 	public void initTemperature() {
 		String tempUnits[] = { "Kelvin(K)", "Fahrenheit(℉)", "Celsius(℃)" };
 		fromSelect.removeAllItems();
-		for(String item: tempUnits) {
+		for (String item : tempUnits) {
 			fromSelect.addItem(item);
 		}
 		toSelect.removeAllItems();
-		for(String item: tempUnits) {
+		for (String item : tempUnits) {
 			toSelect.addItem(item);
 		}
 		// Remove all Action Listeners
@@ -182,6 +199,35 @@ public class Converter extends Gui {
 	}
 
 	public void initCurrency() {
+		List<Currency> currList = tilottama.par.CurrencyHandler.getCurrencies();
+		fromSelect.removeAllItems();
+		for (Currency curr : currList) {
+			fromSelect.addItem(curr.toString());
+		}
+		toSelect.removeAllItems();
+		for (Currency curr : currList) {
+			toSelect.addItem(curr.toString());
+		}
+		// Remove all Action Listeners
+		for (ActionListener l : convBtn.getActionListeners()) {
+			convBtn.removeActionListener(l);
+		}
+		currConv = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				CurrencyConvertor c = new CurrencyConvertor(app, "Currency");
+				int fromUnit = fromSelect.getSelectedIndex(), toUnit = toSelect.getSelectedIndex();
+				double fromValue = Double.parseDouble(fromText.getText());
+				if (fromUnit == toUnit) {
+					toText.setText(Double.toString(fromValue));
+				} else {
+					double val = c.convertCurrency(currList.get(fromUnit).getCurrencyCode(),
+							currList.get(toUnit).getCurrencyCode(), fromValue);
+					toText.setText(String.format("%.2f", val));
+				}
+			}
+		};
+		convBtn.addActionListener(currConv);
 
 	}
 

@@ -5,10 +5,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import com.google.gson.FieldNamingPolicy;
@@ -249,6 +251,15 @@ public class CurrencyHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<Currency> getCurrencies(){
+		loadCurrencies();
+		currencyList=new ArrayList<Currency>();
+		for(Entry<String,Currency> e:currencyMap.entrySet()) {
+			currencyList.add(e.getValue());
+		}
+		return currencyList;
 	}
 
 	public static Currency findCurrency(String key) {

@@ -23,7 +23,7 @@ public class Gui extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 9174476999612229384L;
-	private App app;
+	protected App app;
 	private JMenuBar menu;
 	private JMenu helpMenu, windowMenu, utilitiesMenu;
 	private GuiMenuItem aboutItem, exitItem, calcItem;

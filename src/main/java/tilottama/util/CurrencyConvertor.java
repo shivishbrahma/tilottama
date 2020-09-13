@@ -57,7 +57,28 @@ public class CurrencyConvertor {
 		System.out.println(StringHandler.centerAligned("Powered by ExchangeRate-API", 64, "-"));
 		System.out.println("Current Time: " + DateTime.unixToZFormat(jo.get("time_last_updated").getAsLong()));
 		System.out.println("Current Conversion Rate: " + conv_rate);
-		System.out.println("Amount in " + toCurr + " : " + CurrencyHandler.getCurrencyString(fromCurr, (conv_rate * fromVal)));
+		System.out.println(
+				"Amount in " + toCurr + " : " + CurrencyHandler.getCurrencyString(fromCurr, (conv_rate * fromVal)));
 		sc.close();
+	}
+
+
+	/**
+	 * @param fromCurr
+	 * @param toCurr
+	 * @param val
+	 * @return
+	 */
+	public double convertCurrency(String fromCurr, String toCurr, double val) {
+		fromCurr = fromCurr.toUpperCase();
+		toCurr = toCurr.toUpperCase();
+		String url = s.getConfig().getUrl();
+		url = url + fromCurr;
+		JsonObject jo = scraper.getJsonRequest(url).getAsJsonObject();
+		if (jo == null) {
+			return 0;
+		}
+		double conv_rate = jo.get("rates").getAsJsonObject().get(toCurr).getAsDouble();
+		return conv_rate * val;
 	}
 }
