@@ -14,7 +14,7 @@
 - [ ] Quotes
 - [ ] Jokes
 - [ ] Lyrics
-- [ ] Converter
+- [x] Converter
   - [x] Currency
   - [x] Temperature
 - [ ] Games
@@ -23,12 +23,12 @@
 
 ## GUI
 
-- [ ] About
+- [x] About
 - [ ] Documentation
 - [ ] Landing
 - [ ] Weather App
 - [ ] Calculator
-- [ ] Converter App
+- [x] Converter App
   - [x] Temperature
   - [x] Currency
 - [ ] System Info
