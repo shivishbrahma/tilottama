@@ -33,10 +33,10 @@ public class Converter extends Gui {
 	 * 
 	 */
 	private static final long serialVersionUID = -1761841530029285776L;
-	private JLabel nameLabel, toLabel, fromLabel;
+	private JLabel nameLabel, toLabel, toVal, fromLabel, fromVal;
 	GridBagLayout grid;
 	GridBagConstraints gbc;
-	private JPanel typePanel, convPanel;
+	private JPanel typePanel, convPanel, equalsPanel;
 	private JComboBox<String> typeSelect, toSelect, fromSelect;
 	private JTextField toText, fromText;
 	private JButton convBtn;
@@ -55,7 +55,6 @@ public class Converter extends Gui {
 
 		initPanels();
 		initTemperature();
-//		initCurrency();
 
 		typePanel = new JPanel(grid);
 		nameLabel = new JLabel("Type: ");
@@ -115,6 +114,7 @@ public class Converter extends Gui {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.ipady = 5;
+		gbc.ipadx = 5;
 		gbc.gridwidth = 2;
 		convPanel.add(fromLabel, gbc);
 
@@ -159,11 +159,42 @@ public class Converter extends Gui {
 		gbc.gridwidth = 1;
 		convPanel.add(toSelect, gbc);
 
+		equalsPanel = new JPanel(grid);
+
+		fromVal = new JLabel("(fromValue)");
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.ipady = 5;
+		gbc.ipadx = 5;
+		equalsPanel.add(fromVal, gbc);
+
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.ipady = 5;
+		gbc.ipadx = 5;
+		equalsPanel.add(new JLabel("="), gbc);
+
+		toVal = new JLabel("(toValue)");
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		gbc.ipady = 5;
+		gbc.ipadx = 5;
+		equalsPanel.add(toVal, gbc);
+
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridwidth = 2;
+		gbc.insets = new Insets(20, 20, 20, 20);
+		convPanel.add(equalsPanel, gbc);
+
 		convBtn = new JButton("Convert");
 		convBtn.setPreferredSize(new Dimension(100, 20));
 		gbc.insets = new Insets(20, 20, 20, 20);
 		gbc.gridx = 0;
-		gbc.gridy = 4;
+		gbc.gridy = 5;
 		gbc.gridwidth = 2;
 		convPanel.add(convBtn, gbc);
 	}
@@ -189,9 +220,14 @@ public class Converter extends Gui {
 				double fromValue = Double.parseDouble(fromText.getText());
 				if (fromUnit.equalsIgnoreCase(toUnit)) {
 					toText.setText(Double.toString(fromValue));
+					fromVal.setText(tilottama.par.Temperature.temperatureFormat(fromUnit.charAt(0), fromValue));
+					toVal.setText(tilottama.par.Temperature.temperatureFormat(toUnit.charAt(0), fromValue));
 				} else {
-					toText.setText(String.format("%.3f", tilottama.par.Temperature
-							.temperatureConv(getCharTemperature(fromUnit), getCharTemperature(toUnit), fromValue)));
+					double toValue = tilottama.par.Temperature.temperatureConv(getCharTemperature(fromUnit),
+							getCharTemperature(toUnit), fromValue);
+					toText.setText(String.format("%.3f", toValue));
+					fromVal.setText(tilottama.par.Temperature.temperatureFormat(fromUnit.charAt(0), fromValue));
+					toVal.setText(tilottama.par.Temperature.temperatureFormat(toUnit.charAt(0), toValue));
 				}
 			}
 		};
@@ -220,14 +256,25 @@ public class Converter extends Gui {
 				double fromValue = Double.parseDouble(fromText.getText());
 				if (fromUnit == toUnit) {
 					toText.setText(Double.toString(fromValue));
+					fromVal.setText(tilottama.par.CurrencyHandler
+							.getCurrencyString(currList.get(fromUnit).getCurrencyCode(), fromValue));
+					toVal.setText(tilottama.par.CurrencyHandler
+							.getCurrencyString(currList.get(fromUnit).getCurrencyCode(), fromValue));
 				} else {
-					double val = c.convertCurrency(currList.get(fromUnit).getCurrencyCode(),
+					double toValue = c.convertCurrency(currList.get(fromUnit).getCurrencyCode(),
 							currList.get(toUnit).getCurrencyCode(), fromValue);
-					toText.setText(String.format("%.2f", val));
+					toText.setText(String.format("%.2f", toValue));
+					fromVal.setText(tilottama.par.CurrencyHandler
+							.getCurrencyString(currList.get(fromUnit).getCurrencyCode(), fromValue));
+					toVal.setText(tilottama.par.CurrencyHandler
+							.getCurrencyString(currList.get(toUnit).getCurrencyCode(), toValue));
 				}
 			}
 		};
 		convBtn.addActionListener(currConv);
+	}
+
+	public void initLength() {
 
 	}
 

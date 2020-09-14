@@ -20,6 +20,10 @@
 - [ ] Games
   - [x] Dice Roll
   - [x] Coin Flip
+  - [ ] Sudoku
+  - [ ] Maze Solver
+  - [ ] Tic Tac Toe
+  - [ ] Snanke Xenia
 
 ## GUI
 
@@ -28,6 +32,7 @@
 - [ ] Landing
 - [ ] Weather App
 - [ ] Calculator
+- [ ] Notepad
 - [x] Converter App
   - [x] Temperature
   - [x] Currency

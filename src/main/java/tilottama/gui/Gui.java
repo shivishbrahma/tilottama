@@ -24,10 +24,10 @@ public class Gui extends JFrame {
 	 */
 	private static final long serialVersionUID = 9174476999612229384L;
 	protected App app;
-	private JMenuBar menu;
-	private JMenu helpMenu, windowMenu, utilitiesMenu;
-	private GuiMenuItem aboutItem, exitItem, calcItem;
-	private Gui frame;
+	protected JMenuBar menu;
+	protected JMenu helpMenu, windowMenu, utilitiesMenu;
+	protected GuiMenuItem aboutItem, exitItem, calcItem;
+	protected Gui frame;
 
 	public Gui(App app) {
 		this(app, "");
@@ -48,11 +48,11 @@ public class Gui extends JFrame {
 				(Toolkit.getDefaultToolkit().getScreenSize().height - getSize().height) / 2);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame = this;
-		initMenuBars();
+		initMenuBar();
 		this.setJMenuBar(menu);
 	}
 
-	private void initMenuBars() {
+	private void initMenuBar() {
 		menu = new JMenuBar();
 
 		utilitiesMenu = new JMenu("Utilities");

@@ -139,6 +139,24 @@ public class Temperature {
 			return temp.getTemp();
 		}
 	}
+	
+	public static String temperatureFormat(char fromTem, double val) {
+		String source;
+		switch (fromTem) {
+		case 'c':
+		case 'C':
+			source = String.format("%f ℃", val);
+			break;
+		case 'f':
+		case 'F':
+			source = String.format("%f ℉", val);
+			break;
+		default:
+			source = String.format("%f K", val);
+			break;
+		}
+		return source;
+	}
 
 	public static void temperatureConv(String cmd) {
 		String dest = "", source = "";

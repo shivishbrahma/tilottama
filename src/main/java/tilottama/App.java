@@ -21,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import tilottama.gui.About;
 import tilottama.gui.Calculator;
 import tilottama.gui.Converter;
+import tilottama.gui.Notepad;
 import tilottama.par.Config;
 import tilottama.par.Service;
 import tilottama.par.ServiceHandler;
@@ -58,6 +59,7 @@ public class App {
 		this.frames.put("about", new About(this));
 		this.frames.put("calculator", new Calculator(this));
 		this.frames.put("converter", new Converter(this));
+		this.frames.put("notepad", new Notepad(this));
 	}
 
 	/**
