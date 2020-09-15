@@ -33,6 +33,7 @@
 - [ ] Weather App
 - [ ] Calculator
 - [ ] Notepad
+- [x] Today in History
 - [x] Converter App
   - [x] Temperature
   - [x] Currency

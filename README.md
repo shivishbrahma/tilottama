@@ -21,6 +21,8 @@ A Java based multi-tasking command line interface bot.
 - Wikipedia
   - `wiki <topic>`
 
+- Today in History: `today`
+
 - Number Trick
   - Pi : `pi <no_of_digits>`
   - Roll Dice :`roll`
