@@ -18,31 +18,51 @@ public class MainGame {
 	 * Rolls dice
 	 */
 	public void rollDice() {
-		Random dice = new Random(123);
-		System.out.println("Roll Dice: " + (dice.nextInt(6) + 1));
+		System.out.println("Roll Dice: " + rollDice(123));
 	}
-	
+
+	/**
+	 * Rolls dice with seed
+	 */
+	public int rollDice(int seed) {
+		Random dice = new Random(seed);
+		return (dice.nextInt(6) + 1);
+	}
+
 	/**
 	 * Flips coin
 	 */
 	public void flipCoin() {
-		Random coin = new Random(123);
-		String s[]= {"Heads", "Tails"};
-		System.out.println("Flip Coin: "+s[coin.nextInt(2)]);
+		System.out.println("Flip Coin: " + flipCoin(123));
 	}
-	
+
+	/**
+	 * Flips coin
+	 */
+	public String flipCoin(int seed) {
+		Random coin = new Random(123);
+		String s[] = { "Heads", "Tails" };
+		return s[coin.nextInt(2)];
+	}
+
 	/**
 	 * Print no of digits after decimal
+	 * 
 	 * @param digits - No of digits after decimal
 	 */
 	public void pi(int digits) {
+		System.out.println(tilottama.par.StringHandler.wrapString(getPIDigits(digits), 64));
+	}
+
+	@SuppressWarnings("resource")
+	public String getPIDigits(int digits) {
 		try {
-			BufferedReader br =new BufferedReader(new FileReader(new File("pi.txt")));
-			String s=br.readLine();
-			System.out.println(tilottama.par.StringHandler.wrapString(s.substring(0, digits+2), 64));			
+			BufferedReader br = new BufferedReader(new FileReader(new File("pi.txt")));
+			String s = br.readLine();
+			return s.substring(0, digits + 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		return "";
 	}
 }
