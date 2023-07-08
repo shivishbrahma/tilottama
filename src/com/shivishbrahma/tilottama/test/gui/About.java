@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import tilottama.App;
+import com.shivishbrahma.tilottama.main.App;
 
 /**
  * @author Purbayan Chowdhury<a href=

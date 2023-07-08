@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import tilottama.App;
+import com.shivishbrahma.tilottama.main.App;
 
 /**
  * @author Purbayan Chowdhury<a href=

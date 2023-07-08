@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import tilottama.App;
-import tilottama.gui.par.GuiMenuItem;
+import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.gui.par.GuiMenuItem;
 
 /**
  * @author Purbayan Chowdhury<a href=

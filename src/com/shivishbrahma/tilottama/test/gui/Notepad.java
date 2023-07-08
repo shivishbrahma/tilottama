@@ -10,8 +10,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import tilottama.App;
-import tilottama.gui.par.GuiMenuItem;
+import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.gui.par.GuiMenuItem;
 
 /**
  * @author Purbayan Chowdhury<a href=
