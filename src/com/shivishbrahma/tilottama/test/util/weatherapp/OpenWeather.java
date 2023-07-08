@@ -2,15 +2,15 @@ package com.shivishbrahma.tilottama.test.util.weatherapp;
 
 import java.util.ArrayList;
 
-import tilottama.par.DateTime;
-import tilottama.util.weatherapp.api.Cloud;
-import tilottama.util.weatherapp.api.Coordinate;
-import tilottama.util.weatherapp.api.Main;
-import tilottama.util.weatherapp.api.Rain;
-import tilottama.util.weatherapp.api.Snow;
-import tilottama.util.weatherapp.api.Sys;
-import tilottama.util.weatherapp.api.Weather;
-import tilottama.util.weatherapp.api.Wind;
+import com.shivishbrahma.tilottama.main.par.DateTime;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Cloud;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Coordinate;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Main;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Rain;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Snow;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Sys;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Weather;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.Wind;
 
 /**
  * @author Purbayan Chowdhury

@@ -10,7 +10,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import tilottama.App;
+import com.shivishbrahma.tilottama.main.App;
 
 /**
  * A Web Scraper built using okhttp and gson.
@@ -24,8 +24,8 @@ public class Scraper {
 	 * @param name - Name of the service to be searched
 	 * @return service - Service searched
 	 */
-	public Service findService(App app, String name) {
-		List<Service> sl = app.getServices().stream().filter(p -> p.getName().equalsIgnoreCase(name))
+	public com.shivishbrahma.tilottama.main.par.Service findService(App app, String name) {
+		List<com.shivishbrahma.tilottama.main.par.Service> sl = app.getServices().stream().filter(p -> p.getName().equalsIgnoreCase(name))
 				.collect(Collectors.toList());
 		if (sl.size() > 0) {
 			return sl.get(0);

@@ -5,12 +5,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import tilottama.App;
-import tilottama.par.Scraper;
-import tilottama.par.Service;
-import tilottama.par.StringHandler;
-import tilottama.util.weatherapp.OpenWeather;
-import tilottama.util.weatherapp.OpenWeatherForecast;
+import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.par.Scraper;
+import com.shivishbrahma.tilottama.main.par.Service;
+import com.shivishbrahma.tilottama.main.par.StringHandler;
+import com.shivishbrahma.tilottama.main.util.weatherapp.OpenWeather;
+import com.shivishbrahma.tilottama.main.util.weatherapp.OpenWeatherForecast;
 
 /**
  *

@@ -20,7 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import tilottama.util.currencyconv.api.Currency;
+import com.shivishbrahma.tilottama.main.util.currencyconv.api.Currency;
 
 public class CurrencyHandler {
 

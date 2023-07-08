@@ -7,8 +7,8 @@ package com.shivishbrahma.tilottama.test.util.weatherapp;
 
 import java.util.ArrayList;
 
-import tilottama.util.weatherapp.api.City;
-import tilottama.util.weatherapp.api.DayReport;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.City;
+import com.shivishbrahma.tilottama.main.util.weatherapp.api.DayReport;
 
 /**
  * @author Purbayan Chowdhury

@@ -10,12 +10,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
-import tilottama.App;
-import tilottama.par.CurrencyHandler;
-import tilottama.par.DateTime;
-import tilottama.par.Scraper;
-import tilottama.par.Service;
-import tilottama.par.StringHandler;
+import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.par.CurrencyHandler;
+import com.shivishbrahma.tilottama.main.par.DateTime;
+import com.shivishbrahma.tilottama.main.par.Scraper;
+import com.shivishbrahma.tilottama.main.par.Service;
+import com.shivishbrahma.tilottama.main.par.StringHandler;
 
 /**
  * @author Purbayan Chowdhury

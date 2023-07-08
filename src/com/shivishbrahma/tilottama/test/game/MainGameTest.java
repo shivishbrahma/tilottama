@@ -10,6 +10,8 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.shivishbrahma.tilottama.main.game.MainGame;
+
 /**
  * @author Purbayan Chowdhury<a href=
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>

@@ -5,7 +5,7 @@
  */
 package com.shivishbrahma.tilottama.test.util.weatherapp.api;
 
-import tilottama.par.DateTime;
+import com.shivishbrahma.tilottama.main.par.DateTime;
 
 /**
  *

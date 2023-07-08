@@ -12,6 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.shivishbrahma.tilottama.main.par.StringHandler;
+
 /**
  * @author Purbayan Chowdhury<a href=
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
@@ -33,10 +35,10 @@ public class CalendarAppTest {
 		try {
 			doc = Jsoup.connect(this.BASE_URL+day).get();
 			Elements events = doc.select("span#Events").parents().next().get(0).select("li");
-			System.out.println(tilottama.par.StringHandler.centerAligned("Events", 64, "#"));
+			System.out.println(StringHandler.centerAligned("Events", 64, "#"));
 			for (Element event : events) {
 				String s = event.text();
-				System.out.println(tilottama.par.StringHandler.wrapString(s, 80));
+				System.out.println(StringHandler.wrapString(s, 80));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,10 +50,10 @@ public class CalendarAppTest {
 		try {
 			doc = Jsoup.connect(this.BASE_URL+day).get();
 			Elements events = doc.select("span#Births").parents().next().get(0).select("li");
-			System.out.println(tilottama.par.StringHandler.centerAligned("Births", 64, "#"));
+			System.out.println(StringHandler.centerAligned("Births", 64, "#"));
 			for (Element event : events) {
 				String s = event.text();
-				System.out.println(tilottama.par.StringHandler.wrapString(s, 80));
+				System.out.println(StringHandler.wrapString(s, 80));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,10 +65,10 @@ public class CalendarAppTest {
 		try {
 			doc = Jsoup.connect(this.BASE_URL+day).get();
 			Elements events = doc.select("span#Deaths").parents().next().get(0).select("li");
-			System.out.println(tilottama.par.StringHandler.centerAligned("Deaths", 64, "#"));
+			System.out.println(StringHandler.centerAligned("Deaths", 64, "#"));
 			for (Element event : events) {
 				String s = event.text();
-				System.out.println(tilottama.par.StringHandler.wrapString(s, 80));
+				System.out.println(StringHandler.wrapString(s, 80));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

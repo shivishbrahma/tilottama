@@ -2,11 +2,14 @@ package com.shivishbrahma.tilottama.test.par;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
-import tilottama.App;
-import tilottama.game.MainGame;
-import tilottama.gui.Gui;
-import tilottama.util.CurrencyConvertor;
-import tilottama.util.WeatherApp;
+import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.game.MainGame;
+import com.shivishbrahma.tilottama.main.gui.Gui;
+import com.shivishbrahma.tilottama.main.util.CurrencyConvertor;
+import com.shivishbrahma.tilottama.main.util.WeatherApp;
+import com.shivishbrahma.tilottama.main.util.OSSystem;
+import com.shivishbrahma.tilottama.main.util.OSCommand;
+import com.shivishbrahma.tilottama.main.par.Temperature;
 
 /**
  * @author Purbayan Chowdhury<a href=
@@ -40,29 +43,29 @@ public class ServiceHandler {
 
 		// System Info Commands
 		if (select.equalsIgnoreCase("cpu")) {
-			tilottama.util.OSSystem.details();
+			OSSystem.details();
 			return;
 		}
 		if (select.equalsIgnoreCase("os")) {
-			tilottama.util.OSSystem.osInfo();
+			OSSystem.osInfo();
 			return;
 		}
 		// IP
 		if(select.equalsIgnoreCase("ip")) {
-			tilottama.util.OSSystem.ipInfo();
+			OSSystem.ipInfo();
 			return;
 		}
 		if (select.equalsIgnoreCase("user")) {
-			tilottama.util.OSSystem.userInfo();
+			OSSystem.userInfo();
 			return;
 		}
 		if (select.equalsIgnoreCase("java")) {
-			tilottama.util.OSSystem.javaDetails();
+			OSSystem.javaDetails();
 			return;
 		}
 		if (select.equalsIgnoreCase("sysinfo")) {
 			try {
-				tilottama.util.OSSystem.systemInfo();
+				OSSystem.systemInfo();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -73,7 +76,7 @@ public class ServiceHandler {
 		// System Commands
 		if (select.equalsIgnoreCase("today")) {
 			try {
-				tilottama.util.OSCommand.today();
+				OSCommand.today();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -91,7 +94,7 @@ public class ServiceHandler {
 		// Temperature Convertor
 		if (select.equalsIgnoreCase("temperature")) {
 			args = cmd.replaceAll(select, "").trim();
-			tilottama.par.Temperature.temperatureConv(args);
+			Temperature.temperatureConv(args);
 			return;
 		}
 
