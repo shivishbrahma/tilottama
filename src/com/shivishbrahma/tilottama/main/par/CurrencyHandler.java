@@ -243,7 +243,7 @@ public class CurrencyHandler {
 		GsonBuilder builder = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
 		Gson gson = builder.create();
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("currencies.json")));
+			BufferedReader br = new BufferedReader(new FileReader(new File("assets/data/currencies.json")));
 			JsonElement je = jp.parse(br);
 			Type currMapType = new TypeToken<Map<String, Currency>>() {
 			}.getType();

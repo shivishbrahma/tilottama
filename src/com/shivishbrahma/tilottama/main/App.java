@@ -50,7 +50,7 @@ public class App {
 		this.authors.add("Purbayan Chowdhury");
 		this.authors.add("Anitesh Roy Chowdhury");
 		this.authors.add("Heller Lorday");
-		this.setAPP_ICON(new ImageIcon("icons/icon.png"));
+		this.setAPP_ICON(new ImageIcon("assets/icons/icon.png"));
 		this.initGuiServices();
 		this.readServices();
 	}

@@ -57,7 +57,7 @@ public class MainGame {
 	@SuppressWarnings("resource")
 	public String getPIDigits(int digits) {
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File("pi.txt")));
+			BufferedReader br = new BufferedReader(new FileReader(new File("assets/data/pi.txt")));
 			String s = br.readLine();
 			return s.substring(0, digits + 2);
 		} catch (Exception e) {
