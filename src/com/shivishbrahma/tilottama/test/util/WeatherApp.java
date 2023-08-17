@@ -40,7 +40,8 @@ public class WeatherApp {
 		if (jo == null) {
 			return;
 		}
-		ow = gson.fromJson(jo, OpenWeather.class);
+        // System.out.println(jo);
+		// ow = gson.fromJson(jo, OpenWeather.class);
 
 //        FileWriter fw;
 //        try {           
@@ -64,7 +65,7 @@ public class WeatherApp {
 //        }
 		System.out.println(StringHandler.centerAligned("WEATHER REPORT", 64, "="));
 		System.out.println(StringHandler.centerAligned("Powered by Open Weather Api", 64, "-"));
-		ow.details();
+		// ow.details();
 	}
 
 	/**

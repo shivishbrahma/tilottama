@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Weather",
+        "cmd": "weather",
+        "config": {
+            "key": "<openweathermap_api_key>",
+            "url": "https://api.openweathermap.org/data/2.5/weather?appid=%s",
+            "args": [
+                {
+                    "name": "city",
+                    "type": "String",
+                    "query": "q"
+                },
+                {
+                    "name": "latitude",
+                    "type": "Float",
+                    "query": "lat"
+                },
+                {
+                    "name": "longitude",
+                    "type": "Float",
+                    "query": "lon"
+                }
+            ]
+        }
+    }
+]

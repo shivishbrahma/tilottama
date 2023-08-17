@@ -10,10 +10,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+// import org.apache.logging.log4j.LogManager;
+// import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -34,169 +38,177 @@ import com.shivishbrahma.tilottama.main.par.ServiceHandler;
  *
  */
 public class App {
-	private ArrayList<Service> services;
-	private String APP_NAME, version;
-	private ArrayList<String> authors = new ArrayList<>();
-	private Map<String, JFrame> frames = new HashMap<>();
-	private ImageIcon APP_ICON;
+    private static final Logger logger = Logger.getLogger(App.class.getName());
 
-	public ArrayList<Service> getServices() {
-		return services;
-	}
+    private ArrayList<Service> services;
+    private String APP_NAME, version;
+    private ArrayList<String> authors = new ArrayList<>();
+    private Map<String, JFrame> frames = new HashMap<>();
+    private ImageIcon APP_ICON;
 
-	App() {
-		this.APP_NAME = "Tillotama(তিলোতমা)";
-		this.version = "1.0.1";
-		this.authors.add("Purbayan Chowdhury");
-		this.authors.add("Anitesh Roy Chowdhury");
-		this.authors.add("Heller Lorday");
-		this.setAPP_ICON(new ImageIcon("assets/icons/icon.png"));
-		this.initGuiServices();
-		this.readServices();
-	}
+    public ArrayList<Service> getServices() {
+        return services;
+    }
 
-	public void initGuiServices() {
-		this.frames.put("about", new About(this));
-		this.frames.put("calculator", new Calculator(this));
-		this.frames.put("converter", new Converter(this));
-		this.frames.put("notepad", new Notepad(this));
-	}
+    App() {
+        // String currentDir = System.getProperty("user.dir");
+        // System.setProperty("log4j.configurationFile", currentDir + "/log4j2.xml");
+        Locale locale = new Locale("en", "IN");
+        Locale.setDefault(locale);
 
-	/**
-	 * @return the authors
-	 */
-	public ArrayList<String> getAuthors() {
-		return authors;
-	}
+        this.APP_NAME = "Tillotama(তিলোতমা)";
+        this.version = "1.0.1";
+        this.authors.add("Purbayan Chowdhury");
+        this.authors.add("Anitesh Roy Chowdhury");
+        this.authors.add("Heller Lorday");
+        this.setAPP_ICON(new ImageIcon("assets/icons/icon.png"));
+        this.initGuiServices();
+        this.readServices();
+    }
 
-	/**
-	 * @param authors the authors to set
-	 */
-	public void setAuthors(ArrayList<String> authors) {
-		this.authors = authors;
-	}
+    public void initGuiServices() {
+        this.frames.put("about", new About(this));
+        this.frames.put("calculator", new Calculator(this));
+        this.frames.put("converter", new Converter(this));
+        this.frames.put("notepad", new Notepad(this));
+    }
 
-	/**
-	 * @return the frames
-	 */
-	public Map<String, JFrame> getFrames() {
-		return frames;
-	}
+    /**
+     * @return the authors
+     */
+    public ArrayList<String> getAuthors() {
+        return authors;
+    }
 
-	/**
-	 * @param frames the frames to set
-	 */
-	public void setFrames(Map<String, JFrame> frames) {
-		this.frames = frames;
-	}
+    /**
+     * @param authors the authors to set
+     */
+    public void setAuthors(ArrayList<String> authors) {
+        this.authors = authors;
+    }
 
-	/**
-	 * @return the APP_NAME
-	 */
-	public String getAPP_NAME() {
-		return APP_NAME;
-	}
+    /**
+     * @return the frames
+     */
+    public Map<String, JFrame> getFrames() {
+        return frames;
+    }
 
-	/**
-	 * @param aPP_NAME the aPP_NAME to set
-	 */
-	public void setAPP_NAME(String APP_NAME) {
-		this.APP_NAME = APP_NAME;
-	}
+    /**
+     * @param frames the frames to set
+     */
+    public void setFrames(Map<String, JFrame> frames) {
+        this.frames = frames;
+    }
 
-	/**
-	 * @return the version
-	 */
-	public String getVersion() {
-		return version;
-	}
+    /**
+     * @return the APP_NAME
+     */
+    public String getAPP_NAME() {
+        return APP_NAME;
+    }
 
-	/**
-	 * @param version the version to set
-	 */
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    /**
+     * @param aPP_NAME the aPP_NAME to set
+     */
+    public void setAPP_NAME(String APP_NAME) {
+        this.APP_NAME = APP_NAME;
+    }
 
-	public ImageIcon getAPP_ICON() {
-		return APP_ICON;
-	}
+    /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
 
-	public void setAPP_ICON(ImageIcon APP_ICON) {
-		this.APP_ICON = APP_ICON;
-	}
+    /**
+     * @param version the version to set
+     */
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public ArrayList<Service> dummyServices() {
-		ArrayList<Service> dummyServices = new ArrayList<Service>();
-		Service newService = new Service("Weather", "weather", new Config("8f7b2ef26a8f5e88eb25ae02606284c2", null,
-				"http://api.ipstack.com/check?access_key=%s&output=json&legacy=1"));
-		dummyServices.add(newService);
-		return dummyServices;
-	}
+    public ImageIcon getAPP_ICON() {
+        return APP_ICON;
+    }
 
-	public void writeServices() {
-		GsonBuilder builder = new GsonBuilder();
-		Gson gson = builder.create();
-		FileWriter fw;
-		try {
-			fw = new FileWriter(new File("config.json"));
-			fw.write(gson.toJson(dummyServices()));
-			fw.close();
-			System.out.println("Written successfully!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void setAPP_ICON(ImageIcon APP_ICON) {
+        this.APP_ICON = APP_ICON;
+    }
 
-	/**
-	 * 
-	 */
-	public void readServices() {
-		GsonBuilder builder = new GsonBuilder();
-		Gson gson = builder.create();
-		FileReader fr;
-		try {
-			fr = new FileReader(new File("config.json"));
-			BufferedReader br = new BufferedReader(fr);
+    public ArrayList<Service> dummyServices() {
+        ArrayList<Service> dummyServices = new ArrayList<Service>();
+        Service newService = new Service("Weather", "weather", new Config("8f7b2ef26a8f5e88eb25ae02606284c2", null,
+                "http://api.ipstack.com/check?access_key=%s&output=json&legacy=1"));
+        dummyServices.add(newService);
+        return dummyServices;
+    }
 
-			System.out.println("Read successfully!");
-			Type arrayListType = new TypeToken<ArrayList<Service>>() {
-			}.getType();
-			this.services = gson.fromJson(br, arrayListType);
-//            for(Service i : this.services)
-//                    i.details();
+    public void writeServices() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        FileWriter fw;
+        try {
+            fw = new FileWriter(new File("assets/data/config.json"));
+            fw.write(gson.toJson(dummyServices()));
+            fw.close();
+            logger.info("Written successfully!");
+        } catch (IOException e) {
+            logger.severe(e.getLocalizedMessage());
+        }
+    }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * 
+     */
+    public void readServices() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        FileReader fr;
+        try {
+            fr = new FileReader(new File("assets/data/config.json"));
+            BufferedReader br = new BufferedReader(fr);
 
-	/**
-	 * @return Command taken as input
-	 */
-	public String input() {
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter the command");
-			String cmd = br.readLine();
-			return cmd;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "";
-		}
-	}
+            logger.info("Read successfully!");
 
-	/**
-	 * @param cmd - Command string to be parsed for execution
-	 */
-	public void callService(String cmd) {
-		ServiceHandler.findAndRun(this, cmd);
-	}
+            Type arrayListType = new TypeToken<ArrayList<Service>>() {
+            }.getType();
+            this.services = gson.fromJson(br, arrayListType);
+            // for (Service i : this.services)
+            //     logger.info(i.toString());
 
-	public static void main(String[] args) {
-		App app = new App();
-//		app.writeServices();
-		String cmd = app.input();
-		app.callService(cmd);
-	}
+        } catch (IOException e) {
+            logger.severe(e.getLocalizedMessage());
+        }
+    }
+
+    /**
+     * @return Command taken as input
+     */
+    public String input() {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter the command");
+            String cmd = br.readLine();
+            return cmd;
+        } catch (IOException e) {
+            logger.severe(e.getLocalizedMessage());
+            return "";
+        }
+    }
+
+    /**
+     * @param cmd - Command string to be parsed for execution
+     */
+    public void callService(String cmd) {
+        ServiceHandler.findAndRun(this, cmd);
+    }
+
+    public static void main(String[] args) {
+        App app = new App();
+        // app.writeServices();
+        String cmd = app.input();
+        app.callService(cmd);
+    }
 }
