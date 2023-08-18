@@ -11,8 +11,11 @@ A Java based multi-tasking command line interface bot.
   - `user`
 - Weather and Forecast
 
-  - `(weather/forecast) city <cityname>`
-  - `(weather/forecast) lat <latitiude> lon <longitude>`
+  - `(weather/forecast) --city <cityname>`
+    - weather --city Chennai
+    - weather --city 'Navi Mumbai'
+    - weather --city "New Delhi"
+  - `(weather/forecast) --lat <latitiude> --lon <longitude>`
 - Currency Converter
 
   - `currency <amount> <from> <to>`

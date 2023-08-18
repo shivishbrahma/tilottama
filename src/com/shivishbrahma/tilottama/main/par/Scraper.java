@@ -60,20 +60,37 @@ public class Scraper {
     @SuppressWarnings({ "unlikely-arg-type" })
     public JsonElement getJsonRequest(Service s, String args) {
         StringTokenizer tokenizer = new StringTokenizer(args);
-        String token, val, url = "";
-        Args arg;
+        String token, val = "", url = "";
+        Args arg = null;
         try {
             while (tokenizer.hasMoreTokens()) {
                 token = tokenizer.nextToken();
-                arg = findArg(s, token);
+                if (token.startsWith("--"))
+                    arg = findArg(s, token.substring(2));
                 if (arg == null) {
                     url = url + "+" + token;
                 } else {
                     if (!tokenizer.hasMoreTokens()) {
                         throw new Exception("Missing value or argument name");
                     }
+                    // rootLogger.info(String.format("Arg: %s", arg.getQuery()));
 
-                    val = tokenizer.nextToken();
+                    token = val = tokenizer.nextToken();
+                    String[] quotes = { "'", "\"", "`" };
+
+                    for(String quote: quotes) {
+                        if (token.startsWith(quote)) {
+                            val = val.substring(1);
+                            while (!token.endsWith(quote)) {
+                                token = tokenizer.nextToken();
+                                val = String.format("%s %s", val, token);
+                            }
+                            val = val.substring(0, val.length() - 1);
+                            val = val.replace(" ", "+");
+                        }
+                    }
+                    // rootLogger.info(String.format("Value: %s", val));
+
                     url = url + "&" + arg.getQuery() + "=";
                     if (arg.equals("Integer")) {
                         url = url + "%d";
@@ -92,7 +109,7 @@ public class Scraper {
             }
 
             url = String.format(s.getConfig().url, s.getConfig().key) + url;
-            // rootLogger.info("Formatted Url: %s\n", url);
+            // rootLogger.info(String.format("Formatted Url: %s\n", url));
             return getJsonRequest(url);
         } catch (NumberFormatException e) {
             rootLogger.severe("Invalid Type of Value\n" + e.getMessage());
