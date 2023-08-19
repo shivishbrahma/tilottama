@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import com.shivishbrahma.tilottama.main.annotations.Command;
+import com.shivishbrahma.tilottama.main.App;
 
 /**
  * @author Purbayan Chowdhury<a href=
