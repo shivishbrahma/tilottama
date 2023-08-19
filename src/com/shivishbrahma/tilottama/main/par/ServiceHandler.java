@@ -1,10 +1,13 @@
 package com.shivishbrahma.tilottama.main.par;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import com.shivishbrahma.tilottama.main.App;
+import com.shivishbrahma.tilottama.main.annotations.Command;
 import com.shivishbrahma.tilottama.main.game.MainGame;
 import com.shivishbrahma.tilottama.main.gui.Gui;
 import com.shivishbrahma.tilottama.main.util.CurrencyConvertor;
@@ -23,7 +26,6 @@ public class ServiceHandler {
      * @param cmd
      */
     public static void findAndRun(App app, String cmd) {
-        MainGame mg = new MainGame();
         StringTokenizer token = new StringTokenizer(cmd);
         String args, select;
         select = token.nextToken();
@@ -107,27 +109,10 @@ public class ServiceHandler {
             return;
         }
 
-        // Roll dice
-        if (select.equalsIgnoreCase("roll")) {
-            mg.rollDice();
-            return;
-        }
+        args = cmd.replaceAll(select, "").trim();
 
-        // Flip coin
-        if (select.equalsIgnoreCase("coin")) {
-            mg.flipCoin();
-            return;
-        }
-
-        // Pi Digits
-        if (select.equalsIgnoreCase("pi")) {
-            args = cmd.replaceAll(select, "").trim();
-            if (args.equalsIgnoreCase(""))
-                mg.pi(64 * 64 - 3);
-            else
-                mg.pi(Integer.parseInt(args));
-            return;
-        }
+        MainGame mg = new MainGame();
+        findAndRunService(cmd, args, mg);
 
         // Gui
         if (select.equalsIgnoreCase("gui")) {
@@ -143,8 +128,27 @@ public class ServiceHandler {
 
     }
 
-    public String parseArgs() {
+    public static String parseArgs(String args) {
+        StringTokenizer tokenizer = new StringTokenizer(args);
         return "";
+    }
+
+    public static void findAndRunService(String cmd, String args, Object obj) {
+        Method[] methods = obj.getClass().getDeclaredMethods();
+        for (Method m : methods) {
+            Command cmdAnnotation = m.getAnnotation(Command.class);
+            if (cmdAnnotation != null) {
+                // Check if matches with name or aliases
+                if (cmdAnnotation.name().equalsIgnoreCase(cmd) || Arrays.stream(cmdAnnotation.alias())
+                        .anyMatch(str -> str.equalsIgnoreCase(cmd))) {
+                    try {
+                        m.invoke(obj);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
     }
 
 }

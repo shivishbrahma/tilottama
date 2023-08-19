@@ -9,19 +9,22 @@ import java.util.ArrayList;
  *         "https://shivishbrahma.github.io/">shivishbrahma.github.io</a>)
  */
 public class Config {
-    String key, url;
+    String key, url, source;
     ArrayList<Args> args;
 
-    public Config() {
-        this.key = "";
-        this.args = new ArrayList<Args>();
-        this.url = "";
-    }
-
-    public Config(String key, ArrayList<Args> args, String url) {
+    public Config(String key, ArrayList<Args> args, String url, String source) {
         this.key = key;
         this.url = url;
         this.args = args;
+        this.source = source;
+    }
+
+    public Config(String key, ArrayList<Args> args, String url) {
+        this(key, args, url, "");
+    }
+
+    public Config() {
+        this("", new ArrayList<Args>(), "", "");
     }
 
     public String getKey() {

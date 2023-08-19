@@ -57,7 +57,7 @@ public class Scraper {
      * @param args
      * @return
      */
-    @SuppressWarnings({ "unlikely-arg-type" })
+    // @SuppressWarnings({ "unlikely-arg-type" })
     public JsonElement getJsonRequest(Service s, String args) {
         StringTokenizer tokenizer = new StringTokenizer(args);
         String token, val = "", url = "";

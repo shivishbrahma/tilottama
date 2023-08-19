@@ -137,28 +137,6 @@ public class App {
         this.APP_ICON = APP_ICON;
     }
 
-    public ArrayList<Service> dummyServices() {
-        ArrayList<Service> dummyServices = new ArrayList<Service>();
-        Service newService = new Service("Weather", "weather", new Config("8f7b2ef26a8f5e88eb25ae02606284c2", null,
-                "http://api.ipstack.com/check?access_key=%s&output=json&legacy=1"));
-        dummyServices.add(newService);
-        return dummyServices;
-    }
-
-    public void writeServices() {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        FileWriter fw;
-        try {
-            fw = new FileWriter(new File("assets/data/config.json"));
-            fw.write(gson.toJson(dummyServices()));
-            fw.close();
-            logger.info("Written successfully!");
-        } catch (IOException e) {
-            logger.severe(e.getLocalizedMessage());
-        }
-    }
-
     /**
      * 
      */
@@ -207,7 +185,6 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        // app.writeServices();
         String cmd = app.input();
         app.callService(cmd);
     }
