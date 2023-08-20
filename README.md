@@ -44,12 +44,18 @@ mvn clean compile assembly:single
 
 - Run the jar
 
-```sh
+```bash
 java -jar ./target/tilottama-0.0.1-jar-with-dependencies.jar
 ```
 
 ### Build and test
 
-```sh
+```bash
 mvn clean install
+```
+
+### Generate Javadoc
+
+```bash
+mvn javadoc:javadoc
 ```
