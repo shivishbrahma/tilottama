@@ -1,8 +1,6 @@
 package com.shivishbrahma.tilottama.handlers;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +11,6 @@ import com.shivishbrahma.tilottama.App;
 import com.shivishbrahma.tilottama.annotations.ArgAnnotate;
 import com.shivishbrahma.tilottama.annotations.CommandAnnotate;
 import com.shivishbrahma.tilottama.controllers.GameController;
-import com.shivishbrahma.tilottama.models.Arg;
 
 /**
  * @author Purbayan Chowdhury<a href=
@@ -110,10 +107,8 @@ public class ServiceHandler {
         // return;
         // }
 
-        // args = cmd.replaceAll(select, "").trim();
-
-        GameController mg = new GameController();
-        findAndRunService(app, command, mg);
+        if (findAndRunService(app, command, GameController.class))
+            return;
 
         // Gui
         // if (select.equalsIgnoreCase("gui")) {
@@ -130,13 +125,10 @@ public class ServiceHandler {
 
     private static Object[] parseArgs(App app, ArgAnnotate[] argsConfig, StringTokenizer commandTokenizer) {
         Map<String, Object> argsMap = new HashMap<>();
-        Arg arg = null;
         String token, argName, argValue;
         int argIndex = 0;
 
         String[] quotes = app.getConstantsProperties().getProperty("service.quotes").split("");
-        // ArrayList<String> quotesList = new ArrayList<>(Arrays.asList(quotes));
-        // System.out.println(quotesList);
 
         for (ArgAnnotate argConfig : argsConfig) {
             Class dataType = argConfig.dataType();
@@ -164,9 +156,12 @@ public class ServiceHandler {
                 }
                 // If the first token is argName, so nextToken should be argValue
                 argValue = token = commandTokenizer.nextToken();
+                argIndex = -1;
             } else {
                 argValue = token;
-                if (argsName.length - 1 <= argIndex)
+                if (argIndex == -1)
+                    rootLogger.severe("Positional arguments are not allowed after parameterised arguments");
+                else if (argsName.length - 1 <= argIndex)
                     argName = argsName[argIndex++];
                 else
                     rootLogger.severe("No more arguments expected");
@@ -206,13 +201,11 @@ public class ServiceHandler {
         return argsMap.values().toArray();
     }
 
-    private static void findAndRunService(App app, String command, Object obj) {
+    private static boolean findAndRunService(App app, String command, Class clazz) {
         StringTokenizer commandTokenizer = new StringTokenizer(command);
-        Method[] methods = obj.getClass().getDeclaredMethods();
+        Method[] methods = clazz.getDeclaredMethods();
         String cmd = commandTokenizer.nextToken();
-        // String argsString = command.replaceAll(cmd, "").trim();
 
-        // rootLogger.info("Command: " + cmd + ", Args: " + argsString);
         for (Method m : methods) {
             CommandAnnotate cmdAnnotation = m.getAnnotation(CommandAnnotate.class);
             if (cmdAnnotation != null) {
@@ -225,14 +218,17 @@ public class ServiceHandler {
                         if (argsConfig.length >= 0) {
                             argsValue = parseArgs(app, argsConfig, commandTokenizer);
                         }
-                        m.invoke(obj, argsValue);
+                        m.invoke(clazz, argsValue);
+                        return true;
                     } catch (Exception e) {
-                        // rootLogger.severe(e.toString());
-                        e.printStackTrace();
+                        rootLogger.severe(e.toString());
+                        // e.printStackTrace();
                     }
                 }
             }
         }
+
+        return false;
     }
 
 }

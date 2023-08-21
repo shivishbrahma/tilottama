@@ -19,14 +19,14 @@ import java.util.logging.Logger;
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  */
 public class GameController {
-    Logger rootLogger = Logger.getLogger(App.class.getName());
+    private static Logger rootLogger = Logger.getLogger(App.class.getName());
     public static int seed = (int) Math.round(Math.random() * 1000);
 
     /**
      * Rolls dice
      */
     @CommandAnnotate(name = "roll", alias = { "dice" })
-    public void rollDice() {
+    public static void rollDice() {
         System.out.println("Roll Dice: " + rollDice(seed));
     }
 
@@ -36,7 +36,7 @@ public class GameController {
      * @param seed int - Seed for random
      * @return int
      */
-    private int rollDice(int seed) {
+    private static int rollDice(int seed) {
         Random dice = new Random(seed);
         return (dice.nextInt(256) % 6 + 1);
     }
@@ -45,7 +45,7 @@ public class GameController {
      * Flips coin
      */
     @CommandAnnotate(name = "toss", alias = { "coin" })
-    public void flipCoin() {
+    public static void flipCoin() {
         System.out.println("Flip Coin: " + flipCoin(seed));
     }
 
@@ -55,7 +55,7 @@ public class GameController {
      * @param seed int - Seed for random
      * @return String
      */
-    protected String flipCoin(int seed) {
+    protected static String flipCoin(int seed) {
         Random coin = new Random(seed);
         String[] s = { "Heads", "Tails" };
         return s[coin.nextInt(256) % 2];
@@ -69,7 +69,7 @@ public class GameController {
     @CommandAnnotate(name = "pi", args = {
             @ArgAnnotate(name = "digits", dataType = Integer.class, dataDefault = "8")
     })
-    public void pi(int digits) {
+    public static void pi(int digits) {
         System.out.println(StringHandler.wrapString(getPIDigits(digits), 64));
     }
 
@@ -79,7 +79,7 @@ public class GameController {
      * @param digits int - No of digits after decimal
      * @return String
      */
-    private String getPIDigits(int digits) {
+    private static String getPIDigits(int digits) {
         try {
             BufferedReader br = new BufferedReader(
                     new InputStreamReader(PropertiesHandler.getResourceStream("data/pi.txt")));
