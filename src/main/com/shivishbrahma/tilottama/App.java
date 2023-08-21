@@ -1,12 +1,10 @@
 package com.shivishbrahma.tilottama;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +24,7 @@ import com.shivishbrahma.tilottama.gui.About;
 import com.shivishbrahma.tilottama.gui.Calculator;
 import com.shivishbrahma.tilottama.gui.Converter;
 import com.shivishbrahma.tilottama.gui.Notepad;
+import com.shivishbrahma.tilottama.handlers.PropertiesHandler;
 import com.shivishbrahma.tilottama.handlers.ServiceHandler;
 import com.shivishbrahma.tilottama.models.Service;
 
@@ -36,153 +35,201 @@ import com.shivishbrahma.tilottama.models.Service;
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  */
 public class App {
-	private static final Logger logger = Logger.getLogger(App.class.getName());
-	private ArrayList<Service> services;
-	private String name, version;
-	private ArrayList<String> authors = new ArrayList<>();
-	private Map<String, JFrame> frames = new HashMap<>();
-	private ImageIcon icon;
+    private static final Logger logger = Logger.getLogger(App.class.getName());
+    private ArrayList<Service> services;
+    private String name, version;
+    private ArrayList<String> authors = new ArrayList<>();
+    private Map<String, JFrame> frames = new HashMap<>();
+    private ImageIcon icon;
+    private PropertiesHandler appProperties, constantsProperties;
 
-	App() {
-		Locale locale = new Locale("en", "IN");
-		Locale.setDefault(locale);
+    App() {
+        Locale locale = new Locale("en", "IN");
+        Locale.setDefault(locale);
 
-		this.setName("Tillotama(তিলোতমা)");
-		this.setVersion("1.0.1");
-		this.addAuthor("Purbayan Chowdhury");
-		this.setIcon(new ImageIcon(this.getClass().getResource("/images/icon.png")));
-		this.initGuiServices();
-		this.readServices();
-	}
+        try {
+            appProperties = new PropertiesHandler("properties/app.properties");
+            constantsProperties = new PropertiesHandler("properties/constants.properties");
+            this.setName(appProperties.getProperty("app.name"));
+            this.setVersion(appProperties.getProperty("app.version"));
+            this.addAuthor("Purbayan Chowdhury");
+            this.setIcon(new ImageIcon(this.getClass().getResource("/images/icon.png")));
+        } catch (Exception e) {
+        }
+        this.initGuiServices();
+        this.readServices();
+    }
 
-	/**
-	 * Initialise GUI screens
-	 */
-	private void initGuiServices() {
-		this.frames.put("about", new About(this));
-		this.frames.put("calculator", new Calculator(this));
-		this.frames.put("converter", new Converter(this));
-		this.frames.put("notepad", new Notepad(this));
-	}
+    /**
+     * Initialise GUI screens
+     */
+    private void initGuiServices() {
+        this.frames.put("about", new About(this));
+        this.frames.put("calculator", new Calculator(this));
+        this.frames.put("converter", new Converter(this));
+        this.frames.put("notepad", new Notepad(this));
+    }
 
-	/**
-	 * Read services from config.json
-	 */
-	private void readServices() {
-		GsonBuilder builder = new GsonBuilder();
-		Gson gson = builder.create();
-		FileReader fr;
-		try {
-			String fileName = "data/config.json";
+    /**
+     * Read services from config.json
+     */
+    private void readServices() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        try {
+            InputStreamReader fr = new InputStreamReader(PropertiesHandler.getResourceStream("data/config.json"));
+            BufferedReader br = new BufferedReader(fr);
 
-			URL url = this.getClass().getClassLoader().getResource(fileName);
+            logger.info("Read successfully!");
 
-			if (url == null) {
-				throw new IllegalArgumentException(fileName + " is not found!");
-			}
+            Type arrayListType = new TypeToken<ArrayList<Service>>() {
+            }.getType();
+            this.services = gson.fromJson(br, arrayListType);
+            // for (Service i : this.services)
+            // logger.info(i.toString());
+        } catch (Exception e) {
+            logger.severe(e.toString());
+        }
+    }
 
-			File file = new File(url.getFile());
+    /**
+     * Taking command as input
+     *
+     * @return Command
+     */
+    private String input() {
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Enter the command");
+            String cmd = br.readLine();
+            return cmd;
+        } catch (IOException e) {
+            logger.severe(e.toString());
+            return "";
+        }
+    }
 
-			fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
+    /**
+     * Parse string for execution
+     *
+     * @param cmd String - Command
+     */
+    private void callService(String cmd) {
+        ServiceHandler.findAndRun(this, cmd);
+    }
 
-			logger.info("Read successfully!");
+    public String getName() {
+        return name;
+    }
 
-			Type arrayListType = new TypeToken<ArrayList<Service>>() {
-			}.getType();
-			this.services = gson.fromJson(br, arrayListType);
-			// for (Service i : this.services)
-			// logger.info(i.toString());
-		} catch (IOException e) {
-			logger.severe(e.getLocalizedMessage());
-		}
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Taking command as input
-	 *
-	 * @return Command
-	 */
-	private String input() {
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter the command");
-			String cmd = br.readLine();
-			return cmd;
-		} catch (IOException e) {
-			logger.severe(e.getLocalizedMessage());
-			return "";
-		}
-	}
+    public String getVersion() {
+        return version;
+    }
 
-	/**
-	 * Parse string for execution
-	 *
-	 * @param cmd String - Command
-	 */
-	private void callService(String cmd) {
-		ServiceHandler.findAndRun(this, cmd);
-	}
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * 
+     * @return Map<String, JFrame>
+     */
+    public Map<String, JFrame> getFrames() {
+        return frames;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * 
+     * @param frames Map<String, JFrame>
+     */
+    public void setFrames(Map<String, JFrame> frames) {
+        this.frames = frames;
+    }
 
-	public String getVersion() {
-		return version;
-	}
+    /**
+     * 
+     * @return ImageIcon
+     */
+    public ImageIcon getIcon() {
+        return icon;
+    }
 
-	public void setVersion(String version) {
-		this.version = version;
-	}
+    /**
+     * 
+     * @param icon ImageIcon
+     */
+    public void setIcon(ImageIcon icon) {
+        this.icon = icon;
+    }
 
-	public Map<String, JFrame> getFrames() {
-		return frames;
-	}
+    /**
+     * 
+     * @return ArrayList<String>
+     */
+    public ArrayList<String> getAuthors() {
+        return authors;
+    }
 
-	public void setFrames(Map<String, JFrame> frames) {
-		this.frames = frames;
-	}
+    /**
+     * 
+     * @param authors ArrayList<String>
+     */
+    public void setAuthors(ArrayList<String> authors) {
+        this.authors = authors;
+    }
 
-	public ImageIcon getIcon() {
-		return icon;
-	}
+    /**
+     * 
+     * @param author String
+     */
+    public void addAuthor(String author) {
+        this.authors.add(author);
+    }
 
-	public void setIcon(ImageIcon icon) {
-		this.icon = icon;
-	}
+    /**
+     * 
+     * @return ArrayList<Service>
+     */
+    public ArrayList<Service> getServices() {
+        return services;
+    }
 
-	public ArrayList<String> getAuthors() {
-		return authors;
-	}
+    /**
+     * 
+     * @param services ArrayList<Service>
+     */
+    public void setServices(ArrayList<Service> services) {
+        this.services = services;
+    }
 
-	public void setAuthors(ArrayList<String> authors) {
-		this.authors = authors;
-	}
-	
-	public void addAuthor(String author) {
-		this.authors.add(author);
-	}
+    /**
+     * 
+     * @return PropertiesHandler
+     */
+    public PropertiesHandler getAppProperties() {
+        return appProperties;
+    }
 
-	public ArrayList<Service> getServices() {
-		return services;
-	}
+    /**
+     * 
+     * @return PropertiesHandler
+     */
+    public PropertiesHandler getConstantsProperties() {
+        return constantsProperties;
+    }
 
-	public void setServices(ArrayList<Service> services) {
-		this.services = services;
-	}
+    public static void main(String[] args) {
+        try {
+            App app = new App();
+            String cmd = app.input();
+            app.callService(cmd);
+        } catch (Exception e) {
+            logger.severe(e.toString());
+        }
 
-	/**
-	 *
-	 * @param args String - arguments array
-	 */
-	public static void main(String[] args) {
-		App app = new App();
-		String cmd = app.input();
-		app.callService(cmd);
-	}
+    }
 }

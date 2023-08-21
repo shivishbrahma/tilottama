@@ -5,17 +5,18 @@ package com.shivishbrahma.tilottama.controllers;
 
 import com.shivishbrahma.tilottama.App;
 import com.shivishbrahma.tilottama.annotations.CommandAnnotate;
+import com.shivishbrahma.tilottama.handlers.PropertiesHandler;
 import com.shivishbrahma.tilottama.handlers.StringHandler;
 import com.shivishbrahma.tilottama.annotations.ArgAnnotate;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.util.Random;
 import java.util.logging.Logger;
 
 /**
  * @author Purbayan Chowdhury<a href=
- * "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
+ *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  */
 public class GameController {
     Logger rootLogger = Logger.getLogger(App.class.getName());
@@ -24,7 +25,7 @@ public class GameController {
     /**
      * Rolls dice
      */
-    @CommandAnnotate(name = "roll", alias = {"dice"})
+    @CommandAnnotate(name = "roll", alias = { "dice" })
     public void rollDice() {
         System.out.println("Roll Dice: " + rollDice(seed));
     }
@@ -37,13 +38,13 @@ public class GameController {
      */
     private int rollDice(int seed) {
         Random dice = new Random(seed);
-        return (dice.nextInt(6) + 1);
+        return (dice.nextInt(256) % 6 + 1);
     }
 
     /**
      * Flips coin
      */
-    @CommandAnnotate(name = "toss", alias = {"coin"})
+    @CommandAnnotate(name = "toss", alias = { "coin" })
     public void flipCoin() {
         System.out.println("Flip Coin: " + flipCoin(seed));
     }
@@ -56,8 +57,8 @@ public class GameController {
      */
     protected String flipCoin(int seed) {
         Random coin = new Random(seed);
-        String[] s = {"Heads", "Tails"};
-        return s[coin.nextInt(2)];
+        String[] s = { "Heads", "Tails" };
+        return s[coin.nextInt(256) % 2];
     }
 
     /**
@@ -80,11 +81,13 @@ public class GameController {
      */
     private String getPIDigits(int digits) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("/data/pi.txt"));
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(PropertiesHandler.getResourceStream("data/pi.txt")));
             String s = br.readLine();
             return s.substring(0, digits + 2);
         } catch (Exception e) {
-            rootLogger.severe(e.getMessage());
+            rootLogger.severe(e.toString());
+            // e.printStackTrace();
         }
         return "";
     }

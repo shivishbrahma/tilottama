@@ -39,7 +39,7 @@ A Java based multi-tasking command line interface bot.
 - Build the package with all dependencies
 
 ```sh
-mvn clean compile assembly:single
+mvn clean properties:write-project-properties compile assembly:single
 ```
 
 - Run the jar
@@ -58,4 +58,10 @@ mvn clean install
 
 ```bash
 mvn javadoc:javadoc
+```
+
+### Publish properties from pom
+
+```bash
+mvn properties:write-project-properties
 ```

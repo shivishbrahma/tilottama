@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.shivishbrahma</groupId>
     <artifactId>tilottama</artifactId>
@@ -9,6 +8,9 @@
     <description>A Java based Jarvis</description>
 
     <properties>
+        <app.name>${project.name}</app.name>
+        <app.version>${project.version}</app.version>
+        <app.description>${project.description}</app.description>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -107,7 +109,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <!-- here we specify that we want to use the main method within the App class -->
-                                <mainClass>com.shivishbrahma.tilottama.main.App</mainClass>
+                                <mainClass>com.shivishbrahma.tilottama.App</mainClass>
                             </manifest>
                         </archive>
                     </configuration>
@@ -117,7 +119,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.shivishbrahma.tilottama.main.App</mainClass>
+                                <mainClass>com.shivishbrahma.tilottama.App</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
@@ -154,6 +156,24 @@
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.4.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                    <configuration>
+                        <outputFile>
+                            ${project.build.outputDirectory}/properties/app.properties
+                        </outputFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>write-project-properties</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

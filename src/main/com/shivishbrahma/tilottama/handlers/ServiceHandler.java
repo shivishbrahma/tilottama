@@ -1,6 +1,8 @@
 package com.shivishbrahma.tilottama.handlers;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,7 @@ import com.shivishbrahma.tilottama.models.Arg;
 
 /**
  * @author Purbayan Chowdhury<a href=
- * "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
+ *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  */
 public class ServiceHandler {
     static Logger rootLogger = Logger.getLogger(App.class.getName());
@@ -24,113 +26,117 @@ public class ServiceHandler {
      * @param app App
      * @param cmd String
      */
-    public static void findAndRun(App app, String cmd) {
-        StringTokenizer token = new StringTokenizer(cmd);
-        String args, select;
-        select = token.nextToken();
+    public static void findAndRun(App app, String command) {
+        // StringTokenizer token = new StringTokenizer(cmd);
+        // String args, select;
+        // select = token.nextToken();
         // Weather App
-//        if (select.equalsIgnoreCase("weather")) {
-//            WeatherApp w = new WeatherApp(app, "Weather");
-//            args = cmd.replace(select, "").trim();
-//
-//            w.findWeather(args);
-//            return;
-//        }
-//        if (select.equalsIgnoreCase("forecast")) {
-//            WeatherApp w = new WeatherApp(app, "Forecast");
-//            args = cmd.replace(select, "").trim();
-//            w.findForecast(args);
-//            return;
-//        }
+        // if (select.equalsIgnoreCase("weather")) {
+        // WeatherApp w = new WeatherApp(app, "Weather");
+        // args = cmd.replace(select, "").trim();
+        //
+        // w.findWeather(args);
+        // return;
+        // }
+        // if (select.equalsIgnoreCase("forecast")) {
+        // WeatherApp w = new WeatherApp(app, "Forecast");
+        // args = cmd.replace(select, "").trim();
+        // w.findForecast(args);
+        // return;
+        // }
 
         // System Info Commands
-//        if (select.equalsIgnoreCase("cpu")) {
-//            com.shivishbrahma.tilottama.main.util.OSSystem.details();
-//            return;
-//        }
-//        if (select.equalsIgnoreCase("os")) {
-//            com.shivishbrahma.tilottama.main.util.OSSystem.osInfo();
-//            return;
-//        }
+        // if (select.equalsIgnoreCase("cpu")) {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.details();
+        // return;
+        // }
+        // if (select.equalsIgnoreCase("os")) {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.osInfo();
+        // return;
+        // }
         // IP
-//        if (select.equalsIgnoreCase("ip")) {
-//            com.shivishbrahma.tilottama.main.util.OSSystem.ipInfo();
-//            return;
-//        }
-//        if (select.equalsIgnoreCase("user")) {
-//            com.shivishbrahma.tilottama.main.util.OSSystem.userInfo();
-//            return;
-//        }
-//        if (select.equalsIgnoreCase("java")) {
-//            com.shivishbrahma.tilottama.main.util.OSSystem.javaDetails();
-//            return;
-//        }
-//        if (select.equalsIgnoreCase("sysinfo")) {
-//            try {
-//                com.shivishbrahma.tilottama.main.util.OSSystem.systemInfo();
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-//            return;
-//        }
+        // if (select.equalsIgnoreCase("ip")) {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.ipInfo();
+        // return;
+        // }
+        // if (select.equalsIgnoreCase("user")) {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.userInfo();
+        // return;
+        // }
+        // if (select.equalsIgnoreCase("java")) {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.javaDetails();
+        // return;
+        // }
+        // if (select.equalsIgnoreCase("sysinfo")) {
+        // try {
+        // com.shivishbrahma.tilottama.main.util.OSSystem.systemInfo();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // return;
+        // }
 
         // System Commands
         // if (select.equalsIgnoreCase("today")) {
-        //     try {
-        //         com.shivishbrahma.tilottama.main.util.OSCommand.today();
-        //     } catch (IOException e) {
-        //         // TODO Auto-generated catch block
-        //         e.printStackTrace();
-        //     }
-        //     return;
+        // try {
+        // com.shivishbrahma.tilottama.main.util.OSCommand.today();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // return;
         // }
 
         // Converter app
-//        if (select.equalsIgnoreCase("currency")) {
-//            CurrencyConvertor c = new CurrencyConvertor(app, "Currency");
-//            args = cmd.replace(select, "").trim();
-//            c.convertCurrency(args);
-//            return;
-//        }
-//
-//        if (select.equalsIgnoreCase("temperature")) {
-//            args = cmd.replaceAll(select, "").trim();
-//            com.shivishbrahma.tilottama.main.par.Temperature.temperatureConv(args);
-//            return;
-//        }
+        // if (select.equalsIgnoreCase("currency")) {
+        // CurrencyConvertor c = new CurrencyConvertor(app, "Currency");
+        // args = cmd.replace(select, "").trim();
+        // c.convertCurrency(args);
+        // return;
+        // }
+        //
+        // if (select.equalsIgnoreCase("temperature")) {
+        // args = cmd.replaceAll(select, "").trim();
+        // com.shivishbrahma.tilottama.main.par.Temperature.temperatureConv(args);
+        // return;
+        // }
 
         // Wiki
-//        if (select.equalsIgnoreCase("wiki")) {
-//            args = cmd.replaceAll(select, "").trim();
-//            Wiki wk = new Wiki(args);
-//            wk.details();
-//            return;
-//        }
+        // if (select.equalsIgnoreCase("wiki")) {
+        // args = cmd.replaceAll(select, "").trim();
+        // Wiki wk = new Wiki(args);
+        // wk.details();
+        // return;
+        // }
 
-        args = cmd.replaceAll(select, "").trim();
+        // args = cmd.replaceAll(select, "").trim();
 
         GameController mg = new GameController();
-        findAndRunService(cmd, args, mg);
+        findAndRunService(app, command, mg);
 
         // Gui
-//        if (select.equalsIgnoreCase("gui")) {
-//            args = cmd.replaceAll(select, "").trim();
-//            if (args.equalsIgnoreCase("") || !app.getFrames().containsKey(args)) {
-//                Gui gui = new Gui(app);
-//                gui.setVisible(true);
-//            } else {
-//                app.getFrames().get(args).setVisible(true);
-//            }
-//        }
+        // if (select.equalsIgnoreCase("gui")) {
+        // args = cmd.replaceAll(select, "").trim();
+        // if (args.equalsIgnoreCase("") || !app.getFrames().containsKey(args)) {
+        // Gui gui = new Gui(app);
+        // gui.setVisible(true);
+        // } else {
+        // app.getFrames().get(args).setVisible(true);
+        // }
+        // }
 
     }
 
-    public static Map<String, Object> parseArgs(ArgAnnotate[] argsConfig, String argsString) {
-        StringTokenizer tokenizer = new StringTokenizer(argsString);
+    private static Object[] parseArgs(App app, ArgAnnotate[] argsConfig, StringTokenizer commandTokenizer) {
         Map<String, Object> argsMap = new HashMap<>();
         Arg arg = null;
         String token, argName, argValue;
+        int argIndex = 0;
+
+        String[] quotes = app.getConstantsProperties().getProperty("service.quotes").split("");
+        // ArrayList<String> quotesList = new ArrayList<>(Arrays.asList(quotes));
+        // System.out.println(quotesList);
 
         for (ArgAnnotate argConfig : argsConfig) {
             Class dataType = argConfig.dataType();
@@ -148,23 +154,65 @@ public class ServiceHandler {
         }
 
         String[] argsName = argsMap.keySet().toArray(new String[0]);
-        while (tokenizer.hasMoreTokens()) {
-            token = tokenizer.nextToken();
+        while (commandTokenizer.hasMoreTokens()) {
+            token = commandTokenizer.nextToken();
             argName = argValue = "";
             if (token.startsWith("--")) {
                 argName = token.substring(2);
-                if (!tokenizer.hasMoreTokens()) {
+                if (!commandTokenizer.hasMoreTokens()) {
                     rootLogger.severe(String.format("Missing value for %s", argName));
+                }
+                // If the first token is argName, so nextToken should be argValue
+                argValue = token = commandTokenizer.nextToken();
+            } else {
+                argValue = token;
+                if (argsName.length - 1 <= argIndex)
+                    argName = argsName[argIndex++];
+                else
+                    rootLogger.severe("No more arguments expected");
+            }
+
+            // Handling quoted strings
+            for (String quote : quotes) {
+                if (token.startsWith(quote)) {
+                    argValue = argValue.substring(1);
+                    while (!token.endsWith(quote)) {
+                        token = commandTokenizer.nextToken();
+                        argValue = String.format("%s %s", argValue, token);
+                    }
+                    argValue = argValue.substring(0, argValue.length() - 1);
+                    break;
                 }
             }
 
+            if (!argName.equalsIgnoreCase("")) {
+                // System.out.format("%s : %s\n", argName, argValue);
+                if (argsMap.get(argName).getClass().equals(Integer.class)) {
+                    argsMap.put(argName, Integer.parseInt(argValue));
+                } else if (argsMap.get(argName).getClass().equals(Double.class)) {
+                    argsMap.put(argName, Double.parseDouble(argValue));
+                } else if (argsMap.get(argName).getClass().equals(Float.class)) {
+                    argsMap.put(argName, Float.parseFloat(argValue));
+                } else {
+                    argsMap.put(argName, argValue);
+                }
+            }
         }
 
-        return argsMap;
+        // for (Map.Entry<String, Object> e : argsMap.entrySet()) {
+        // System.out.format("%s %s", e.getKey(), e.getValue());
+        // }
+
+        return argsMap.values().toArray();
     }
 
-    public static void findAndRunService(String cmd, String argsString, Object obj) {
+    private static void findAndRunService(App app, String command, Object obj) {
+        StringTokenizer commandTokenizer = new StringTokenizer(command);
         Method[] methods = obj.getClass().getDeclaredMethods();
+        String cmd = commandTokenizer.nextToken();
+        // String argsString = command.replaceAll(cmd, "").trim();
+
+        // rootLogger.info("Command: " + cmd + ", Args: " + argsString);
         for (Method m : methods) {
             CommandAnnotate cmdAnnotation = m.getAnnotation(CommandAnnotate.class);
             if (cmdAnnotation != null) {
@@ -173,12 +221,14 @@ public class ServiceHandler {
                         .anyMatch(str -> str.equalsIgnoreCase(cmd))) {
                     try {
                         ArgAnnotate[] argsConfig = cmdAnnotation.args();
+                        Object[] argsValue = {};
                         if (argsConfig.length >= 0) {
-                            Map<String, Object> argsMap = parseArgs(argsConfig, argsString);
+                            argsValue = parseArgs(app, argsConfig, commandTokenizer);
                         }
-//                        m.invoke(obj);
+                        m.invoke(obj, argsValue);
                     } catch (Exception e) {
-                        rootLogger.severe(e.getMessage());
+                        // rootLogger.severe(e.toString());
+                        e.printStackTrace();
                     }
                 }
             }

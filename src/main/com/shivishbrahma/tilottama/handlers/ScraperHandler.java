@@ -114,10 +114,10 @@ public class ScraperHandler {
             // rootLogger.info(String.format("Formatted Url: %s\n", url));
             return getJsonRequest(url);
         } catch (NumberFormatException e) {
-            rootLogger.severe("Invalid Type of Value\n" + e.getMessage());
+            rootLogger.severe("Invalid Type of Value\n" + e.toString());
             System.exit(0);
         } catch (Exception e) {
-            rootLogger.severe(e.getMessage());
+            rootLogger.severe(e.toString());
             System.exit(0);
         }
 
@@ -146,7 +146,7 @@ public class ScraperHandler {
                 return jp.parse(json);
             }
         } catch (Exception e) {
-            rootLogger.severe(e.getMessage());
+            rootLogger.severe(e.toString());
             return null;
         }
     }

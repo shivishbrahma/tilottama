@@ -14,9 +14,9 @@
 - [ ] Quotes
 - [ ] Jokes
 - [ ] Lyrics
-- [x] Converter
-  - [x] Currency
-  - [x] Temperature
+- [ ] Converter
+  - [ ] Currency
+  - [ ] Temperature
 - [ ] Games
   - [x] Dice Roll
   - [x] Coin Flip
@@ -33,9 +33,9 @@
 - [ ] Weather App
 - [ ] Calculator
 - [ ] Notepad
-- [x] Today in History
-- [x] Converter App
-  - [x] Temperature
-  - [x] Currency
+- [ ] Today in History
+- [ ] Converter App
+  - [ ] Temperature
+  - [ ] Currency
 - [ ] System Info
 - [ ] Currency App
