@@ -11,13 +11,14 @@ import com.shivishbrahma.tilottama.App;
 import com.shivishbrahma.tilottama.annotations.ArgAnnotate;
 import com.shivishbrahma.tilottama.annotations.CommandAnnotate;
 import com.shivishbrahma.tilottama.controllers.GameController;
+import com.shivishbrahma.tilottama.controllers.SystemController;
 
 /**
  * @author Purbayan Chowdhury<a href=
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  */
 public class ServiceHandler {
-    static Logger rootLogger = Logger.getLogger(App.class.getName());
+    static Logger rootLogger = Logger.getLogger(ServiceHandler.class.getName());
 
     /**
      * @param app App
@@ -106,6 +107,9 @@ public class ServiceHandler {
         // wk.details();
         // return;
         // }
+
+        if (findAndRunService(app, command, SystemController.class))
+            return;
 
         if (findAndRunService(app, command, GameController.class))
             return;
@@ -208,22 +212,18 @@ public class ServiceHandler {
 
         for (Method m : methods) {
             CommandAnnotate cmdAnnotation = m.getAnnotation(CommandAnnotate.class);
-            if (cmdAnnotation != null) {
-                // Check if matches with name or aliases
-                if (cmdAnnotation.name().equalsIgnoreCase(cmd) || Arrays.stream(cmdAnnotation.alias())
-                        .anyMatch(str -> str.equalsIgnoreCase(cmd))) {
-                    try {
-                        ArgAnnotate[] argsConfig = cmdAnnotation.args();
-                        Object[] argsValue = {};
-                        if (argsConfig.length >= 0) {
-                            argsValue = parseArgs(app, argsConfig, commandTokenizer);
-                        }
-                        m.invoke(clazz, argsValue);
-                        return true;
-                    } catch (Exception e) {
-                        rootLogger.severe(e.toString());
-                        // e.printStackTrace();
-                    }
+            // Check if matches with name or aliases
+            if (cmdAnnotation != null &&
+                    (cmdAnnotation.name().equalsIgnoreCase(cmd) || Arrays.stream(cmdAnnotation.alias())
+                            .anyMatch(str -> str.equalsIgnoreCase(cmd)))) {
+                try {
+                    ArgAnnotate[] argsConfig = cmdAnnotation.args();
+                    Object[] argsValue = parseArgs(app, argsConfig, commandTokenizer);
+
+                    m.invoke(clazz, argsValue);
+                    return true;
+                } catch (Exception e) {
+                    rootLogger.severe(e.toString());
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.shivishbrahma.tilottama.util;
+package com.shivishbrahma.tilottama.controllers;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.Scanner;
 
+import com.shivishbrahma.tilottama.annotations.CommandAnnotate;
 import com.shivishbrahma.tilottama.handlers.StringHandler;
 
 /**
@@ -14,10 +15,18 @@ import com.shivishbrahma.tilottama.handlers.StringHandler;
  *         "mailto:pur.cho.99@gmail.com">pur.cho.99@gmail.com</a>
  *
  */
-public class OSSystem {
+public class SystemController {
+
+    @CommandAnnotate(name = "exit", alias = { "bye" })
+    public static void exit() {
+        System.out.println("Biday bondhu!");
+        System.exit(0);
+    }
+
     /**
      * 
      */
+    @CommandAnnotate(name = "cpu")
     public static void details() {
         System.out.println("\n" + StringHandler.centerAligned("MEMORY INFO", 64, "="));
         /* Total number of processors or cores available to the JVM */
@@ -63,6 +72,7 @@ public class OSSystem {
         // System.out.println(System.getenv("NUMBER_OF_PROCESSORS"));
     }
 
+    @CommandAnnotate(name = "os", alias = { "osInfo" })
     public static void osInfo() {
         System.out.println("\n" + StringHandler.centerAligned("OS INFO", 64, "="));
         System.out.println(StringHandler.leftAligned("OS Name", 32) + ": "
@@ -82,6 +92,7 @@ public class OSSystem {
 
     }
 
+    @CommandAnnotate(name = "user", alias = { "userInfo" })
     public static void userInfo() {
         System.out.println("\n" + StringHandler.centerAligned("USER INFO", 64, "="));
         System.out.println(StringHandler.leftAligned("User Name: ", 32) + ": "
@@ -92,6 +103,7 @@ public class OSSystem {
                 + StringHandler.rightAligned(System.getProperty("user.home"), 32));
     }
 
+    @CommandAnnotate(name = "ip", alias = { "ipInfo" })
     public static void ipInfo() {
         System.out.println("\n" + StringHandler.centerAligned("IP INFO", 64, "="));
         try {
@@ -112,22 +124,26 @@ public class OSSystem {
 
     }
 
-    public static void systemInfo() throws IOException {
-        Process process = Runtime.getRuntime().exec("pyarchey");
-        // deal with OutputStream to send inputs
-        // process.getOutputStream();
+    public static void systemInfo() {
+        try {
+            Process process = Runtime.getRuntime().exec("pyarchey");
+            // deal with OutputStream to send inputs
+            process.getOutputStream();
 
-        // deal with InputStream to get ordinary outputs
-        Scanner scanner = new Scanner(process.getInputStream());
-        scanner.useDelimiter("\r\n");
+            // deal with InputStream to get ordinary outputs
+            // Scanner scanner = new Scanner(process.getInputStream());
+            // scanner.useDelimiter("\r\n");
 
-        while (scanner.hasNext()) {
-            System.out.println(scanner.next());
+            // while (scanner.hasNext()) {
+            // System.out.println(scanner.next());
+            // }
+
+            // scanner.close();
+
+            // deal with ErrorStream to get error outputs
+            process.getErrorStream();
+
+        } catch (Exception e) {
         }
-
-        scanner.close();
-
-        // deal with ErrorStream to get error outputs
-        process.getErrorStream();
     }
 }

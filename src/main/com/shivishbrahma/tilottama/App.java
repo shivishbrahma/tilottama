@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.Locale;
@@ -14,8 +15,6 @@ import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-// import org.apache.logging.log4j.LogManager;
-// import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -36,12 +35,14 @@ import com.shivishbrahma.tilottama.models.Service;
  */
 public class App {
     private static final Logger logger = Logger.getLogger(App.class.getName());
-    private ArrayList<Service> services;
-    private String name, version;
-    private ArrayList<String> authors = new ArrayList<>();
+    private String name;
+    private String version;
+    private List<Service> services;
+    private List<String> authors = new ArrayList<>();
     private Map<String, JFrame> frames = new HashMap<>();
     private ImageIcon icon;
-    private PropertiesHandler appProperties, constantsProperties;
+    private PropertiesHandler appProperties;
+    private PropertiesHandler constantsProperties;
 
     App() {
         Locale locale = new Locale("en", "IN");
@@ -101,8 +102,7 @@ public class App {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Enter the command");
-            String cmd = br.readLine();
-            return cmd;
+            return br.readLine();
         } catch (IOException e) {
             logger.severe(e.toString());
             return "";
@@ -168,17 +168,17 @@ public class App {
 
     /**
      * 
-     * @return ArrayList<String>
+     * @return List<String>
      */
-    public ArrayList<String> getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
     /**
      * 
-     * @param authors ArrayList<String>
+     * @param authors List<String>
      */
-    public void setAuthors(ArrayList<String> authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
@@ -192,17 +192,17 @@ public class App {
 
     /**
      * 
-     * @return ArrayList<Service>
+     * @return List<Service>
      */
-    public ArrayList<Service> getServices() {
+    public List<Service> getServices() {
         return services;
     }
 
     /**
      * 
-     * @param services ArrayList<Service>
+     * @param services List<Service>
      */
-    public void setServices(ArrayList<Service> services) {
+    public void setServices(List<Service> services) {
         this.services = services;
     }
 
@@ -223,10 +223,13 @@ public class App {
     }
 
     public static void main(String[] args) {
+        String cmd = "";
         try {
             App app = new App();
-            String cmd = app.input();
-            app.callService(cmd);
+            while (!cmd.equals("exit")) {
+                cmd = app.input();
+                app.callService(cmd);
+            }
         } catch (Exception e) {
             logger.severe(e.toString());
         }
